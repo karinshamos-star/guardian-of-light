@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from guardian_core.ai import AIReadingProvider, AIReadingUnavailable
 from guardian_core.cards import CardDrawRequest, draw_cards
 from guardian_core.intent import IntentRequest, classify_intent
 from guardian_core.reading import create_reading
@@ -12,7 +13,7 @@ from guardian_core.spread import SpreadSelectionRequest, select_spread
 
 app = FastAPI(
     title="Guardian of Light MVP",
-    version="0.3.0",
+    version="0.4.0",
     description="Runnable local MVP for Guardian of Light.",
 )
 
@@ -36,7 +37,17 @@ def home():
 
 @app.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
-    return HealthResponse(status="ok", version="0.3.0")
+    return HealthResponse(status="ok", version="0.4.0")
+
+
+@app.get("/v1/system/status")
+def system_status():
+    provider = AIReadingProvider()
+    return {
+        "version": "0.4.0",
+        "ai_enabled": provider.enabled,
+        "reading_mode": "ai_with_template_fallback" if provider.enabled else "template",
+    }
 
 
 @app.post("/v1/intent/classify")
@@ -78,9 +89,22 @@ def create_full_reading(request: ReadingRequest):
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
-    reading = create_reading(dna, spread, draw)
+    provider = AIReadingProvider()
+    reading_source = "template"
+    try:
+        reading = provider.generate(
+            question=request.question,
+            question_dna=dna,
+            spread=spread,
+            draw=draw,
+        )
+        reading_source = "ai"
+    except AIReadingUnavailable:
+        reading = create_reading(dna, spread, draw)
+
     return {
         "status": "completed",
+        "reading_source": reading_source,
         "question_dna": dna,
         "spread": spread,
         "draw": draw,
