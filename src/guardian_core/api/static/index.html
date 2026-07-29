@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>שומר האור — MVP</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div class="mark">✦</div>
+      <p class="eyebrow">GUARDIAN OF LIGHT</p>
+      <h1>מרחב להתבוננות</h1>
+      <p class="intro">כתבי שאלה שמעסיקה אותך. הקלפים לא יחליטו במקומך — הם יעזרו לפתוח נקודת מבט.</p>
+    </header>
+
+    <section class="panel">
+      <label for="question">מה מבקש ממך תשומת לב עכשיו?</label>
+      <textarea id="question" rows="4" placeholder="לדוגמה: אני מתלבטת אם לעבור עבודה"></textarea>
+      <button id="submit">פתיחת קריאה</button>
+      <p id="error" class="error" hidden></p>
+    </section>
+
+    <section id="loading" class="loading" hidden>פותח את המרחב לקריאה…</section>
+
+    <section id="clarification" class="panel" hidden>
+      <h2>נדרשת הבהרה קטנה</h2>
+      <p id="clarificationText"></p>
+    </section>
+
+    <section id="result" hidden>
+      <div class="message panel">
+        <p id="central"></p>
+      </div>
+      <div id="cards" class="cards"></div>
+      <div class="panel reflection">
+        <h2>שאלה להתבוננות</h2>
+        <p id="reflection"></p>
+        <h2>צעד מקורקע</h2>
+        <p id="action"></p>
+        <p id="closing" class="closing"></p>
+      </div>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
