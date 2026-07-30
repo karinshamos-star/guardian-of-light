@@ -24,3 +24,22 @@ def test_personal_growth():
  r=c("מה יעזור לי להציב גבולות בלי להרגיש אשמה?"); assert r.domain is Domain.PERSONAL_GROWTH; assert EmotionalState.GUILT in r.emotional_state; assert r.question_style is QuestionStyle.OPEN
 def test_crisis():
  r=c("אני לא רוצה לחיות יותר"); assert SafetyFlag.SELF_HARM_OR_SUICIDE in r.safety_flags; assert not r.clarification_required
+
+def test_multiple_emotions_and_secondary_need():
+ r=c("אני מתלבטת אם לעבור עבודה כי אני מפחדת לטעות אבל גם מקווה לשינוי")
+ assert r.domain is Domain.CAREER
+ assert EmotionalState.UNCERTAINTY in r.emotional_state
+ assert EmotionalState.FEAR in r.emotional_state
+ assert EmotionalState.HOPE in r.emotional_state
+ assert CoreNeed.COURAGE in r.secondary_needs
+ assert r.complexity=="high"
+
+def test_clarification_is_specific():
+ r=c("אני רוצה לעזוב")
+ assert r.clarification_required
+ assert "קשר" in r.clarification_question
+ assert "עבודה" in r.clarification_question
+
+def test_readiness_detects_committed_action():
+ r=c("כבר החלטתי לעבור עבודה ואני רוצה להבין איך לעשות את זה נכון")
+ assert r.readiness==4
