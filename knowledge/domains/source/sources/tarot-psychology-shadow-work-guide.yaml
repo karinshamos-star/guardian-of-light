@@ -1,0 +1,22 @@
+id: source.tarot-psychology-shadow-work-guide
+domain: source
+entity_type: source
+name: Tarot Psychology and Shadow Work — Guide to Expanding Awareness
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  reference_url: sources/tarot/סיכום מקיף_ פסיכולוגיית הטארוט ועבודה עם הצל.pdf
+  notes: >
+    sha256: de09c893dee5e61f319efc9e044389d70d506338b3f17aba9ef524134e64234
+
+    3-page guide framing tarot as a symbolic/psychological system
+    ("Enlightenment Tarot") rather than a predictive tool. Likely better
+    suited to Concept entities (e.g. a shadow-work concept) than
+    CardKnowledge.

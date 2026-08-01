@@ -1,0 +1,22 @@
+id: source.tarot-card-combinations-ellershaw
+domain: source
+entity_type: source
+name: Comprehensive Guide to Tarot Card Combinations
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  author: ג'וזפין אלרשו
+  reference_url: sources/tarot/מדריך טארוט מקיף_ שילובי קלפים ומשמעויות.pdf
+  notes: >
+    sha256: 53be06374a70a4a8aeae368826afe45f65634d578d387de7cfb1db938c0cc8b
+
+    5-page guide on reading multi-card combinations rather than single-card
+    meanings. Doesn't map directly onto the single-card CardKnowledge
+    schema as-is.

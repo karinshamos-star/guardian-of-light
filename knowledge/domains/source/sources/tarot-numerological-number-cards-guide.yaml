@@ -1,0 +1,23 @@
+id: source.tarot-numerological-number-cards-guide
+domain: source
+entity_type: source
+name: Guide to the Numerological Number Cards (1–9)
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  author: רויטל כהן
+  reference_url: sources/tarot/המדריך המלא לקלפי המספרים הנומרולוגיים.pdf
+  notes: >
+    sha256: b1839642930ffe5b14fbfcb60e597ed41b458ab6fd37c018e6001fda702d5be
+
+    5-page guide on the philosophy and practice of applying numerological
+    "frequency" to tarot's minor-arcana pip cards 1-9. Cross-domain
+    (numerology within tarot) — more complex than a single-domain first
+    validation slice.

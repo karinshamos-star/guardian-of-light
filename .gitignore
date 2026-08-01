@@ -8,3 +8,8 @@ venv/
 .env
 .env.*
 !.env.example
+
+# Raw source material: local reference only, never the canonical knowledge
+# source, and too large/mixed-license to version. See sources/README.md.
+sources/*
+!sources/README.md

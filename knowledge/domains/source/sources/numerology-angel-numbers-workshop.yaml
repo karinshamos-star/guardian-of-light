@@ -1,0 +1,21 @@
+id: source.numerology-angel-numbers-workshop
+domain: source
+entity_type: source
+name: Universal Messages — Channeling Workshop Notes
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  reference_url: sources/numerology/מסרים-אוניברסאלים-סדנת-תקשור.pdf
+  notes: >
+    sha256: 69f0a787614d8edc28cfb681a16f2f5609d6082b71b34c366693e4cc29d035e
+
+    2-page workshop handout on "angel numbers" (repeated digit sequences,
+    e.g. 111/222) as intuitive/channeled messages. Workshop framing, not
+    core numerology reference material in the sense this project uses.

@@ -1,0 +1,26 @@
+id: source.crystals-scents-colors-chart
+domain: source
+entity_type: source
+name: Crystals, Scents & Colors by Life-Path Number
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  reference_url: sources/numerology/קריסטלים_ריחות_וצבעים.pdf
+  notes: >
+    sha256: 9355f488c99ab5e51dbcb7d40454d7d67b2bb35cf674616848fff6ba293ad6a
+
+    1-page chart mapping life-path numbers to crystals/scents/colors.
+    Contact details on the page resemble the author of
+    source.numerology-number-interpretations-01 (itsrevitalcohen-style
+    handle) but this is unconfirmed, not asserted as data.author here.
+
+    Domain is Crystals, which PROJECT_STATE explicitly freezes until
+    Tarot+Numerology are further along — registered for inventory
+    completeness only, not a near-term extraction candidate.

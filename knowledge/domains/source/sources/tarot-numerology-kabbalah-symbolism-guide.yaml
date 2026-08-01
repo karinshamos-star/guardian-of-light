@@ -1,0 +1,23 @@
+id: source.tarot-numerology-kabbalah-symbolism-guide
+domain: source
+entity_type: source
+name: Guide — Synergy of Tarot, Numerology and Kabbalah
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  reference_url: sources/tarot/המדריך המלא_ נומרולוגיה, קבלה וסמליות המספרים בטארוט.pdf
+  notes: >
+    sha256: 61733d4d2843a714730b7f7f1f9b896a1d306bb54c56f171f2be54b1fd4eda0
+
+    3-page introductory guide on the symbolic meaning of numbers across
+    tarot, numerology, and Kabbalah. Touches Kabbalah, which PROJECT_STATE
+    explicitly freezes until Tarot+Numerology are further along —
+    registered for inventory completeness only, not a near-term extraction
+    candidate.

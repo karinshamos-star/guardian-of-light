@@ -1,0 +1,21 @@
+id: source.numerology-masterclass-course-book
+domain: source
+entity_type: source
+name: Numerology MasterClass Course Book
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: course
+  reference_url: sources/numerology/ספר הקורס - החדש.pdf
+  notes: >
+    sha256: e99151aee5ac38a58efd0a648bb688aa9db0604d6bd39d1c6ae0cb7a39752b9
+
+    145-page course book, first page reads "MasterClass". Broad, multi-topic,
+    not yet reviewed in detail — far larger in scope than the single-entity
+    slices this workflow is validating first.

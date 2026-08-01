@@ -1,0 +1,28 @@
+id: source.numerology-number-interpretations-01
+domain: source
+entity_type: source
+name: Number Interpretations File 01
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  author: רויטל כהן
+  reference_url: sources/numerology/קובץ פירוש מספרים 01.pdf
+  notes: >
+    sha256: 1da63e6ebff964adc2ee483472d0ceca4cdbacb88770d16a689298672e57833
+
+    3-page structured correspondence table for numbers 1-9: keyword/symbol,
+    animal, height, climate, country/city, music, touch/fabric, taste,
+    colors, scents, materials, and a block of dominant personality traits
+    per number.
+
+    LICENSING FLAG: page 1 carries a rights notice — all rights reserved to
+    the author, content use requires her personal written permission. Do
+    not promote any entity built from this source past draft/needs_review
+    without resolving usage rights first.

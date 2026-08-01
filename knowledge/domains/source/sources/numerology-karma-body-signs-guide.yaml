@@ -1,0 +1,24 @@
+id: source.numerology-karma-body-signs-guide
+domain: source
+entity_type: source
+name: Numerology, Karma and Body/Soul Signs — Study Guide
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  reference_url: sources/tarot/מדריך למידה מקיף_ פענוח מסרים אוניברסאליים וסימני גוף ונפש.pdf
+  notes: >
+    sha256: 0825653653d46ff6dc44abbeb369f96f0678048ecd28066a18b68b853752ebb
+
+    3-page guide covering numerology as a developmental tool, universal
+    messages read through body/environment signs, and karma.
+
+    Filed on disk under sources/tarot/ despite being numerology subject
+    matter — flagged here, not moved, since reorganizing sources/ is a
+    content-organization call, not an infra one.
