@@ -1,0 +1,25 @@
+id: source.numerology-kabbalah-tarot-synergy-guide
+domain: source
+entity_type: source
+name: Guide — Synergy of Tarot, Numerology and Kabbalah (numerology/ copy)
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  reference_url: sources/numerology/המדריך המלא_ נומרולוגיה, קבלה וסמליות המספרים בטארוט.pdf
+  notes: >
+    sha256: e7d9b25856d0c4eb98fa12191d09072cefef47b6a2bb5b61c6d7fddedfb4665
+
+    Same title and opening text as source.tarot-numerology-kabbalah-symbolism-guide;
+    file size differs by 1 byte and the hash differs, but a page-1 text
+    comparison found no meaningful content difference — appears to be a
+    re-export/re-save of the same document rather than new material.
+    Registered per SOP (new path = new file), but not treated as a
+    distinct content candidate. Still touches Kabbalah, which PROJECT_STATE
+    freezes until Tarot+Numerology are further along.

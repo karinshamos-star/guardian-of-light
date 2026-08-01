@@ -1,0 +1,46 @@
+id: source.numerology-number-cards-1-9-guide
+domain: source
+entity_type: source
+name: Guide to the Number Cards 1–9 — Philosophy and Practice of Numerological Frequency
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-01"
+    reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+data:
+  source_type: pdf
+  author: רויטל כהן
+  reference_url: sources/numerology/המדריך המלא לקלפי המספרים הנומרולוגיים.pdf
+  notes: >
+    sha256: 308757482812d0a0de715c5c2a411faefd616c17da136027a83fb08f8d55650
+
+    5-page guide, one consistent profile per number 1-9: a "strategic
+    analysis" paragraph (maps well to essence), an explicit "promoting
+    frequency" bullet (תדר מקדם — maps to supporting_frequency) and
+    "blocking frequency" bullet (תדר מעכב — maps to blocking_frequency,
+    each with a stated psychological root, e.g. "the stubbornness comes
+    from a deep need to lead"), plus a closing section on turning the
+    knowledge into conscious change and individual responsibility.
+    Structurally the closest match to NumberKnowledge's fields of anything
+    reviewed so far.
+
+    Same author/method (רויטל כהן) as source.numerology-number-interpretations-01
+    and source.tarot-numerological-number-cards-guide, but a different file
+    (different hash/path/content) — likely a revised or re-exported edition,
+    not a copy.
+
+    LICENSING: searched full extracted text for rights/license language
+    (זכויות / רישיון / license / copyright / אישור / Creative Commons /
+    public domain) — found no restrictive notice in this file, unlike
+    source.numerology-number-interpretations-01 which explicitly reserves
+    all rights and requires personal written permission. Absence of a
+    notice is not the same as confirmed permission, though: the content
+    throughout attributes the described method to this same named author
+    ("על פי שיטת רויטל כהן" / "בשיטת רויטל כהן"), so default copyright
+    protection still applies regardless of whether a notice is printed.
+    Whatever the actual usage-rights relationship is with this author's
+    material isn't stated in the document itself and needs to come from
+    outside it.

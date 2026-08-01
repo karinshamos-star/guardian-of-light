@@ -2,13 +2,17 @@ id: source.numerology-masterclass-course-book
 domain: source
 entity_type: source
 name: Numerology MasterClass Course Book
-status: draft
+status: deprecated
 provenance:
   confidence: unverified
 changelog:
   - version: "0.1"
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+  - version: "0.2"
+    date: "2026-08-01"
+    reason: "File no longer present under sources/ as of rescan; deprecated rather than deleted to preserve the intake record. Never extracted from."
     reviewer: null
 data:
   source_type: course
