@@ -85,6 +85,19 @@ informed it — is that honestly reflected in the compiled entity's
 `provenance.confidence` (usually `interpretive`, not `primary`, in that
 case)?
 
+## Domain-specific editorial standards
+
+A domain may define its own layered editorial model on top of this
+generic format — a fixed set of knowledge layers every entity in that
+domain is built from, each with its own sourcing rule, so that structure
+belongs to Guardian rather than to whichever source happens to inform a
+given entity. `synthesis/tarot/README.md` is the first example (six
+layers: Structural Identity, Symbolic Language, Canonical Meaning,
+Interpretive Lenses, Lived Application, Guardian Voice). When a domain
+has one, "Guardian's synthesized understanding" (section 1 above) should
+be organized by that domain's layers, not just by the target schema's
+fields.
+
 ## Compiling to YAML
 
 Once `synthesis_status: reviewed`, a human transcribes the finalized
