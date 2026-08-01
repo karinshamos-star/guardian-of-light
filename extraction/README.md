@@ -3,15 +3,18 @@
 This directory is the intermediate authoring workspace between raw source
 material and Guardian's canonical knowledge. Nobody — human or AI — authors
 `knowledge/**/*.yaml` directly from a source. Instead, analysis happens here
-first, gets reviewed, and only reviewed extraction documents are transcribed
-into canonical YAML.
+first, gets reviewed, and only feeds canonical YAML by way of editorial
+synthesis (see `synthesis/README.md`) — extraction is never compiled to
+YAML directly.
 
 ```
-sources_raw/<file>                                     (immutable reference material)
+sources/<file>                                          (raw reference material — see sources/README.md)
       ↓  analysis
-extraction/<domain>/<entity_type>/<slug>.md             (this directory)
+extraction/<domain>/<entity_type>/<slug>.md              (this directory)
       ↓  human review
-knowledge/domains/<domain>/<entity_type>s/<slug>.yaml   (manual, mechanical transcription)
+synthesis/<domain>/<entity_type>/<slug>.md               (Guardian's own editorial voice — see synthesis/README.md)
+      ↓  human review + mechanical compile
+knowledge/domains/<domain>/<entity_type>s/<slug>.yaml
       ↓  build_corpus() validation → Knowledge Package → guardian_core
 ```
 
@@ -49,7 +52,7 @@ Frontmatter:
 ```yaml
 target_id: tarot.card.major-01
 source_refs:
-  - path: sources_raw/<file>
+  - path: sources/<domain>/<file>
     location: "p. 42"   # page, section, chapter, timestamp -- whatever locates it
 extraction_status: draft   # draft | reviewed
 reviewer: null              # filled in when status moves to reviewed
@@ -64,9 +67,15 @@ Body — four explicit sections, in this order, every time:
 2. **Source-derived paraphrase** — the source's content in Guardian's own
    words, without adding meaning the source doesn't contain. A restatement,
    not an extension.
-3. **Proposed Guardian interpretation** — Guardian's own reading, framing,
-   or application of the source material. Anything that goes beyond what
-   the source says belongs here, never in section 1 or 2.
+3. **Proposed Guardian interpretation** — first-pass reactions and framing
+   ideas while reading *this* source. Anything that goes beyond what the
+   source says belongs here, never in section 1 or 2 — but this is not the
+   canonical synthesis. It's raw material for the synthesis stage, not a
+   substitute for it: canonical knowledge is never a transcription of any
+   single author's work, including via this section. See
+   `synthesis/README.md` for where Guardian's actual editorial voice gets
+   decided, especially once more than one source touches the same
+   `target_id`.
 4. **Open questions / unresolved decisions** — anything uncertain enough
    that it should not yet be transcribed into canonical YAML: ambiguous
    source wording, conflicting sources, missing information, judgment
@@ -85,16 +94,11 @@ This is a different check than the `ready_for_ai` gate applied later in
 fit to reach users) — both gates are kept, because they check different
 things.
 
-## Compiling to YAML
+## After extraction
 
-Once `extraction_status: reviewed`, a human transcribes the finalized
-content into `knowledge/domains/<domain>/<entity_type>s/<slug>.yaml` by
-hand. Nothing is decided at this step — every value transcribed should
-already be settled in the extraction document. The compiled entity starts
-at `status: draft` in the normal `knowledge/` lifecycle and proceeds through
-the existing review gates from there. `provenance.source_ids` on the
-compiled entity should reference the same `Source` entity the extraction
-document's `source_refs` point at.
-
-This step is manual for now. Scripting it is deferred until the same
-transcription pattern repeats often enough to justify the infrastructure.
+Once `extraction_status: reviewed`, this document is ready to feed the
+editorial synthesis stage — not the compiled YAML directly. See
+`synthesis/README.md` for what happens next: one or more reviewed
+extraction documents for the same `target_id` become one synthesis
+document, written in Guardian's own voice, which is what actually gets
+compiled into `knowledge/`.

@@ -4,12 +4,16 @@ This directory is Guardian's canonical knowledge source. Notion (or any other
 tool) is an *authoring adapter* that produces files here — it is not itself
 the source of truth, and the build pipeline never reads from it directly.
 
+Nobody authors these YAML files directly from a source, and no entity here
+is a transcription of any single author's work. Authoring flows through two
+upstream stages first — `sources/` → `extraction/` → `synthesis/` (see each
+directory's own README) — and only a reviewed synthesis document, written
+in Guardian's own editorial voice, gets compiled here by hand.
+
 ## How this is built
 
 ```
-Authoring (Notion, or any adapter)
-       ↓
-Structured YAML files (this directory)
+sources/  →  extraction/  →  synthesis/  →  Structured YAML files (this directory)
        ↓
 Validation (guardian_core.knowledge, Pydantic + structural checks)
        ↓
