@@ -6,11 +6,22 @@ Canonical handover document. Read this alone; no prior chat history is required 
 
 Guardian is a reflective tarot/numerology reading app. Backend (`guardian_core`, Python/FastAPI/Pydantic) implements a `WorldSession` state machine driving a spatial "library" narrative, plus a reading pipeline (Intent → Spread → Card Draw → Narrative). A new subsystem, the **Guardian Knowledge Platform**, is now the canonical source for tarot/numerology/etc. domain content: Git + YAML, Pydantic-validated, compiled into a versioned runtime package. Notion is an editorial/authoring surface only, never the runtime source.
 
-**Critical fact: this directory is not yet a git repository.** No commits exist. This is the most urgent open item — see "Exact Next Task."
+Canonical knowledge is never authored directly, and is never a transcription of any single external source. Authoring flows through a staged pipeline — `sources/` → `extraction/` → `synthesis/` → `knowledge/` → Knowledge Package — detailed in "Architecture Overview" below.
+
+**Git is initialized and the repo has real commit history.** This is no longer the blocking item it once was — see "Current Implementation Status" and "Exact Next Implementation Task" below for what's actually next.
 
 ## Repository Structure
 
 ```
+sources/                            # raw reference material — local only, gitignored except README.md
+  README.md                         # source-registration SOP (scan, register, wait for approval)
+
+extraction/                         # per-source faithful analysis, one doc per target entity
+  README.md                         # format, review rules
+
+synthesis/                          # Guardian's own editorial voice, cross-source
+  README.md                         # format, review rules
+
 knowledge/                          # canonical knowledge source (data, no Python)
   README.md                         # governance + layout rules
   domains/<domain>/<entity_type>s/<slug>.yaml   # every entity, no exceptions
@@ -24,7 +35,8 @@ src/guardian_core/
   knowledge/           # Guardian Knowledge Platform (models, corpus, writers, loader, build, domains/)
 
 tests/                 # pytest, flat structure, 67 tests passing
-pyproject.toml         # deps: pydantic, fastapi, uvicorn, openai, pyyaml
+pyproject.toml         # deps: pydantic, fastapi, uvicorn, openai, pyyaml; optional groups: dev, extraction (pypdf)
+.venv/                 # project-local virtualenv (gitignored) — pip install -e ".[dev,extraction]"
 ```
 
 ## Architecture Overview
@@ -35,10 +47,63 @@ Two subsystems, both mature:
 
 2. **Guardian Knowledge Platform** — canonical pipeline:
    ```
-   Authoring (Notion or any adapter) → Structured YAML (knowledge/)
+   sources/ → extraction/ → synthesis/ → knowledge/ (Structured YAML)
      → Validation (Pydantic + structural checks) → KnowledgeCorpus (generic, in-memory)
      → Writer (pluggable; JSON first) → Knowledge Package → guardian_core (loader)
    ```
+
+   Each stage has a distinct, deliberately non-interchangeable role (each
+   directory carries its own README with the full format/review rules):
+
+   - **`sources/`** — private reference materials (PDFs, books, course
+     files, notes). Local only; gitignored except its own `README.md`;
+     **never loaded by Guardian at runtime**. Adding or changing a file
+     here runs the source-registration SOP: scan → register a `draft`
+     `Source` entity in `knowledge/domains/source/sources/` (matched by
+     `data.reference_url` + a SHA-256 in `data.notes`) → stop and wait for
+     explicit per-source approval before any extraction begins.
+   - **`extraction/`** — faithful analysis of one specific source (or set
+     of sources cited together) for one target entity. Four required
+     sections: direct quotes, source-derived paraphrase, first-pass
+     proposed interpretation, open questions. Reviewed on exactly one
+     question — does this honestly represent what the source says? Not
+     schema-validated; that looseness is intentional.
+   - **`synthesis/`** — **Guardian's original editorial synthesis**,
+     written fresh and organized by the target schema's fields, not by
+     source, and explicitly separated from any single source's wording or
+     proprietary framework. This is the stage that actually decides what
+     Guardian teaches. Reconciles multiple extraction documents when more
+     than one source touches the same target entity. Reviewed on a
+     different question than extraction — is this genuine synthesis, not
+     reworded source material?
+   - **`knowledge/`** — canonical, validated, machine-readable knowledge.
+     Compiled by hand (manual by design, for now) from a reviewed
+     synthesis document — never authored directly, never a transcription.
+     Pydantic-validated, status-gated
+     (`draft → needs_review → reviewed → ready_for_ai → deprecated`).
+   - **Knowledge Package** — the compiled, versioned runtime artifact
+     (`knowledge/_compiled/knowledge_package.json` today) that
+     `guardian_core` actually loads. Only `ready_for_ai`-gated entities are
+     included.
+
+## Licensing & Usage Rights
+
+External sources in `sources/` remain subject to ordinary copyright and
+licensing rules no matter which pipeline stage touches them.
+
+- **Synthesis does not automatically resolve licensing concerns.** Writing
+  Guardian's own editorial synthesis instead of transcribing a source is a
+  real, meaningful step away from republishing someone's text, but it is
+  not a substitute for actually knowing the usage-rights relationship with
+  a source's author — especially when one source is a dominant or sole
+  input to an entity.
+- **No source-derived content may reach `status: ready_for_ai` while its
+  usage rights are unresolved.** If a `Source` entity's `data.notes` (or
+  any later review step) flags an open rights/licensing question, every
+  entity whose `provenance.source_ids` includes it stays capped below
+  `ready_for_ai` until that question is explicitly resolved by a human.
+  `corpus.build_corpus()` does not currently check this automatically —
+  it's a review discipline, not (yet) an enforced rule.
 
 ## Infrastructure Completed (`src/guardian_core/knowledge/`)
 
@@ -75,7 +140,11 @@ Schema validation; ID format + uniqueness; file path matches `domains/<domain>/<
 
 ## Current Implementation Status
 
-67/67 tests passing. Vertical slice proven end-to-end: 4 real, connected, `ready_for_ai` entities — `tarot.card.major-00` (The Fool), `source.guardian-editorial`, `claim.tarot-0001`, `concept.new-beginnings` — built, gated, compiled to `knowledge/_compiled/knowledge_package.json`, reloaded, and materialized into typed `CardKnowledge`. **Repo has zero git history.**
+67/67 tests passing. **Git is initialized with real commit history** (git init through the sources/extraction/synthesis pipeline design, in a series of small commits).
+
+The original vertical slice — 4 `ready_for_ai` entities (`tarot.card.major-00` "The Fool", `source.guardian-editorial`, `claim.tarot-0001`, `concept.new-beginnings`) — is still the only content compiled all the way through to `knowledge/_compiled/knowledge_package.json`, reloaded, and materialized into a typed object. It **predates** `extraction/` and `synthesis/` and was authored editorially, not produced through them — don't treat it as an example of the current authoring workflow, only of the compile/validate/load mechanics.
+
+`sources/` is populated with real reference material (numerology and tarot PDFs). 13 `Source` entities exist in `knowledge/domains/source/sources/`, all `status: draft` except one `deprecated` (its file was removed from `sources/` after registration; never extracted from). **No entity has yet been produced through the full `sources/` → `extraction/` → `synthesis/` → `knowledge/` pipeline** — that first real end-to-end run is the immediate next task (see "Exact Next Implementation Task"), currently blocked on source approval and an unresolved licensing question.
 
 ## Completed Milestones
 
@@ -90,11 +159,11 @@ Schema validation; ID format + uniqueness; file path matches `domains/<domain>/<
 
 ## Remaining Milestones (priority order)
 
-1. **Initialize git and make the first commit** — blocking; see below.
-2. Populate remaining 21 Major Arcana cards as `CardKnowledge` YAML (per "12 — Tarot Knowledge Schema"'s own MVP recommendation).
+1. **Run the first real end-to-end knowledge migration** through `sources/` → `extraction/` → `synthesis/` → `knowledge/` → Knowledge Package — to validate the pipeline itself, not to produce volume — before scaling to milestones 2 or 5 below. Blocked on: (a) explicit approval of which registered `Source` to use, (b) that source's usage-rights question resolved enough to proceed. **Update this document again once that validation is complete, especially if anything about the process changes as a result.**
+2. Populate remaining 21 Major Arcana cards as `CardKnowledge` YAML (per "12 — Tarot Knowledge Schema"'s own MVP recommendation) — via the full pipeline this time, not authored directly the way `major-00` was.
 3. Wire `reading/engine.py` to load from the Knowledge Package instead of hardcoded dicts.
 4. Add a CI workflow (GitHub Actions or equivalent) running pytest + a compiled-package-freshness check (rebuild and diff against committed `knowledge_package.json`).
-5. Reconcile/migrate real Numerology content (Number Cards 1–9 vs. Numbers DB mismatch) into `NumberKnowledge` YAML — a content task, not an infra task.
+5. Reconcile/migrate real Numerology content into `NumberKnowledge` YAML — a content task, not an infra task. `sources/numerology/` now has real candidate material registered as draft `Source` entities; see `knowledge/domains/source/sources/`.
 6. Document Life Path / Expression Number / Soul Urge calculation methods as `CalculationMethod` entities (pending real source material — do not fabricate formulas).
 7. Explicitly freeze Astrology/Kabbalah/Crystals/Human Design content until Tarot+Numerology are further along.
 8. Decide on (optional) a formal Notion-export adapter script vs. authoring YAML directly going forward.
@@ -105,6 +174,7 @@ Schema validation; ID format + uniqueness; file path matches `domains/<domain>/<
 - CI platform/workflow specifics (not yet chosen or configured).
 - Whether `knowledge_package.json` rebuilds should be a pre-commit hook or remain a manual step.
 - Whether `CalculationMethod.inputs` should become structured/typed rather than free-text strings.
+- Whether the extraction → synthesis → YAML compile steps should eventually be scripted. Currently manual by design; revisit once the same transcription pattern repeats often enough to justify the infrastructure.
 
 ## Do NOT Redesign or Change
 
@@ -116,7 +186,13 @@ Schema validation; ID format + uniqueness; file path matches `domains/<domain>/<
 - Never expose internal engine artifacts (`question_dna`, `spread`, `draw`, `reading_source`) through `ExperienceCommand` or through a `ready_for_ai`-gated Knowledge Package.
 - Do not adopt SQLite/Postgres/Neo4j as canonical now — only reconsider if content/query scale genuinely demands it, and then only as an additional writer/loader backend.
 - The web client must stay generic (branch on `interaction.type` only) — never re-encode narrative logic client-side.
+- Canonical knowledge (`knowledge/`) must never be authored directly and must never be a transcription of any single external source — it is compiled from a reviewed `synthesis/` document, which itself synthesizes (not just aggregates) across `extraction/` documents. This holds even when only one source exists for a given entity.
+- No source-derived entity may reach `status: ready_for_ai` while its source's usage rights are unresolved — see "Licensing & Usage Rights" above.
 
 ## Exact Next Implementation Task
 
-**Run `git init` in the repository root, create a `.gitignore` covering `__pycache__/`, `.venv*/`, `*.pyc`, then stage and commit the entire current state as the first commit** (suggested message: "Initial commit: Guardian reading pipeline, WorldSession, and Knowledge Platform with tarot vertical slice"). Confirm with the user before running `git init` if starting a fresh session, since it's a first-time repository decision. After that, proceed to Remaining Milestone #2 (populate the remaining 21 Major Arcana cards).
+Git is initialized; that is no longer the blocking item.
+
+**Next: run the first real end-to-end knowledge migration** through the full `sources/` → `extraction/` → `synthesis/` → `knowledge/` → Knowledge Package pipeline — to validate the pipeline itself, not to produce content volume — before touching Remaining Milestone #2 (the other 21 Major Arcana cards) or #5 (Numerology reconciliation).
+
+As of this writing, `source.numerology-number-cards-1-9-guide` (registered, `status: draft`) has been recommended as the first candidate on content-quality and structural-fit grounds, but is **not yet approved**. Do not begin extraction until: (a) the user explicitly approves a source, and (b) the usage-rights relationship with that source's author is clear enough to proceed — per "Licensing & Usage Rights" above, unresolved rights don't block getting as far as `needs_review`, but do block `ready_for_ai`.
