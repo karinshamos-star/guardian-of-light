@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guardian — הספרייה החיה</title>
+  <link rel="stylesheet" href="/static/world-demo.css?v=100">
+</head>
+<body>
+<main class="world" id="world">
+  <div class="world__background" aria-hidden="true"></div>
+  <div class="world__shade" aria-hidden="true"></div>
+  <div class="fireflies" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="/world-demo">
+      <span class="brand__symbol">✦</span>
+      <span><strong>GUARDIAN</strong><small>הספרייה החיה</small></span>
+    </a>
+  </header>
+
+  <section class="welcome" id="welcome" aria-live="polite">
+    <p class="guide-name" id="sceneLabel">&nbsp;</p>
+    <h1>לומינה, שומרת האור</h1>
+    <p class="guide-line" id="luminaMessage">רגע, אני פותחת את השער…</p>
+
+    <div class="loading" id="loading" hidden><span></span><p>רגע של המתנה…</p></div>
+    <p class="error" id="error" hidden></p>
+
+    <div id="readingContent" class="reading-content" hidden>
+      <div class="cards" id="cards"></div>
+      <section class="takeaway">
+        <article><span>מה אפשר לעשות עכשיו</span><p id="action"></p></article>
+        <article><span>שאלה שכדאי לקחת איתך</span><p id="reflection"></p></article>
+      </section>
+      <p class="closing" id="closing"></p>
+    </div>
+
+    <div id="interaction"></div>
+  </section>
+
+  <footer><span><i></i> העולם מקשיב</span><span>WorldSession client · v1</span></footer>
+</main>
+<script src="/static/world-demo.js?v=100"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+id: concept.new-beginnings
+domain: concept
+entity_type: concept
+name: New Beginnings
+status: ready_for_ai
+provenance:
+  confidence: interpretive
+  source_ids:
+    - source.guardian-editorial
+changelog:
+  - version: "1.0"
+    date: "2026-07-31"
+    reason: "Initial entry to support the tarot vertical slice."
+    reviewer: karina
+data:
+  category: archetype
+  definition: >
+    The moment before a path has been chosen -- open potential, unwritten
+    consequence, a step taken without full certainty of what follows.
+  light_expression: Openness, trust, willingness to begin without a guarantee.
+  shadow_expression: Recklessness, ignoring real risk, mistaking naivety for faith.
+  guardian_language: >
+    Guardian frames this as an invitation to notice what's genuinely new
+    versus what's an old pattern wearing a new outfit.

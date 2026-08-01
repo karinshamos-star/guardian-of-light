@@ -1,0 +1,60 @@
+id: tarot.card.major-00
+domain: tarot
+entity_type: card
+name: The Fool
+status: ready_for_ai
+provenance:
+  confidence: interpretive
+  source_ids:
+    - source.guardian-editorial
+  claim_ids:
+    - claim.tarot-0001
+changelog:
+  - version: "1.0"
+    date: "2026-07-31"
+    reason: "Initial authoring as the vertical-slice proof card for the Guardian Knowledge Platform."
+    reviewer: karina
+related:
+  concepts:
+    - concept.new-beginnings
+tags:
+  - major-arcana
+  - beginnings
+data:
+  arcana: major
+  name_he: השוטה
+  core_essence: >
+    Standing at the edge of the known, carrying everything needed for the
+    next step without yet knowing what that step requires.
+  light_expression: >
+    Trust in the process, genuine openness to experience, courage to begin
+    without a guaranteed outcome.
+  shadow_expression: >
+    Recklessness, refusing to plan, mistaking naivety for faith, ignoring
+    real and visible risk.
+  reversed_expression: >
+    Hesitation dressed as caution, a real beginning delayed past the point
+    it was ever going to feel fully safe -- or the opposite: leaping
+    without any grounding at all.
+  dimensions:
+    emotional: A feeling of openness that hasn't yet been tested by consequence.
+    mental: Thinking in possibility rather than plan.
+    relational: Entering a connection or situation without a fixed script for how it should go.
+    practical: A first, literal step -- a trip, a job, a project -- taken before every variable is controlled for.
+    spiritual: Willingness to be changed by what hasn't happened yet.
+  contexts:
+    love: Entering something new without demanding certainty about how it ends.
+    work: Starting a role, project, or direction before every risk is fully mapped.
+    money: A financial choice made on reasoned trust rather than complete information.
+    decision: The option that requires courage more than analysis.
+    growth: The step that can only be understood by taking it.
+  reflection_questions:
+    - "What would you do here if you trusted that you could handle whatever came next?"
+    - "Is your hesitation protecting you from real risk, or just from feeling uncertain?"
+  grounded_actions:
+    - "Name one small, reversible version of the leap you're considering, and take just that."
+    - "Write down the one piece of information you'd actually need before this stops feeling like a blind leap."
+  safety_notes: >
+    Guardian must not read this card as license to ignore real, material
+    risk (financial, physical, relational safety) -- openness to beginning
+    is not the same as recommending an unexamined leap.

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guardian World — אבטיפוס</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="world-shell">
+    <section id="world" class="world" aria-label="עולם Guardian">
+      <div class="sky-glow"></div>
+      <div class="stars" aria-hidden="true"></div>
+
+      <header class="hud">
+        <div>
+          <p class="eyebrow">GUARDIAN WORLD · V0.1</p>
+          <h1>היכל האור</h1>
+          <p class="visually-hidden">שומר האור</p>
+        </div>
+        <button id="soundToggle" class="icon-button" type="button" aria-pressed="false">קול: כבוי</button>
+      </header>
+
+      <nav class="portals" aria-label="אזורי החוכמה">
+        <button class="portal active" data-guide="holistic" type="button">
+          <span class="portal-symbol">✦</span>
+          <strong>היכל משולב</strong>
+          <small>כמה עדשות, קריאה אחת</small>
+        </button>
+        <button class="portal" data-guide="tarot" type="button">
+          <span class="portal-symbol">🃏</span>
+          <strong>חדר הטארוט</strong>
+          <small>סמלים, דפוסים ואפשרויות</small>
+        </button>
+        <button class="portal" data-guide="numerology" type="button">
+          <span class="portal-symbol">🔢</span>
+          <strong>חדר המספרים</strong>
+          <small>מחזורים ומשמעות אישית</small>
+        </button>
+        <button class="portal" data-guide="kabbalah" type="button">
+          <span class="portal-symbol">✡</span>
+          <strong>היכל הקבלה</strong>
+          <small>ערכים ועקרונות להתבוננות</small>
+        </button>
+        <button class="portal" data-guide="crystals" type="button">
+          <span class="portal-symbol">💎</span>
+          <strong>גן הקריסטלים</strong>
+          <small>סמל, כוונה ועוגן</small>
+        </button>
+      </nav>
+
+      <section class="guide-stage">
+        <div id="guide" class="guide" aria-hidden="true">
+          <div class="guide-aura"></div>
+          <div class="guide-body">
+            <span class="guide-eye left"></span>
+            <span class="guide-eye right"></span>
+          </div>
+          <div class="guide-shadow"></div>
+        </div>
+
+        <div class="dialogue" role="status" aria-live="polite">
+          <p class="speaker">לומינה · המדריכה</p>
+          <p id="guideText">ברוכה הבאה להיכל האור. בחרי דרך להתבוננות, או התחילי בקריאה משולבת.</p>
+          <button id="beginButton" type="button">להתחיל במסע</button>
+        </div>
+      </section>
+
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

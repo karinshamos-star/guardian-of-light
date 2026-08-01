@@ -1,0 +1,193 @@
+{
+  "entities": {
+    "claim.tarot-0001": {
+      "changelog": [
+        {
+          "date": "2026-07-31",
+          "reason": "Initial claim to support the tarot vertical slice.",
+          "reviewer": "karina",
+          "version": "1.0"
+        }
+      ],
+      "data": {
+        "claim_type": "traditional",
+        "confidence": "medium",
+        "disputed": false,
+        "evidence_note": "Widely repeated across popular tarot literature; not sourced here to one specific citable text.\n",
+        "statement": "Across common tarot tradition, The Fool (card 0) is read as boundless potential and the start of a journey, not as foolishness in the pejorative sense -- the everyday word \"fool\" is a false-friend reading of the card.\n"
+      },
+      "domain": "claim",
+      "entity_type": "claim",
+      "id": "claim.tarot-0001",
+      "name": "The Fool represents unlimited potential rather than foolishness",
+      "provenance": {
+        "claim_ids": [],
+        "confidence": "interpretive",
+        "source_ids": [
+          "source.guardian-editorial"
+        ]
+      },
+      "related": {},
+      "schema_version": "1.0",
+      "status": "ready_for_ai",
+      "tags": []
+    },
+    "concept.new-beginnings": {
+      "changelog": [
+        {
+          "date": "2026-07-31",
+          "reason": "Initial entry to support the tarot vertical slice.",
+          "reviewer": "karina",
+          "version": "1.0"
+        }
+      ],
+      "data": {
+        "category": "archetype",
+        "definition": "The moment before a path has been chosen -- open potential, unwritten consequence, a step taken without full certainty of what follows.\n",
+        "guardian_language": "Guardian frames this as an invitation to notice what's genuinely new versus what's an old pattern wearing a new outfit.\n",
+        "light_expression": "Openness, trust, willingness to begin without a guarantee.",
+        "shadow_expression": "Recklessness, ignoring real risk, mistaking naivety for faith."
+      },
+      "domain": "concept",
+      "entity_type": "concept",
+      "id": "concept.new-beginnings",
+      "name": "New Beginnings",
+      "provenance": {
+        "claim_ids": [],
+        "confidence": "interpretive",
+        "source_ids": [
+          "source.guardian-editorial"
+        ]
+      },
+      "related": {},
+      "schema_version": "1.0",
+      "status": "ready_for_ai",
+      "tags": []
+    },
+    "source.guardian-editorial": {
+      "changelog": [
+        {
+          "date": "2026-07-31",
+          "reason": "Initial entry: represents Guardian's own synthesized tarot interpretation, not a specific external text.",
+          "reviewer": "karina",
+          "version": "1.0"
+        }
+      ],
+      "data": {
+        "notes": "Used for card content authored by Guardian directly from common, widely-shared tarot tradition rather than a single cited external work. Confidence is interpretive, not primary, until a specific external source is identified and cited per card.\n",
+        "source_type": "guardian_internal"
+      },
+      "domain": "source",
+      "entity_type": "source",
+      "id": "source.guardian-editorial",
+      "name": "Guardian Editorial Synthesis",
+      "provenance": {
+        "claim_ids": [],
+        "confidence": "interpretive",
+        "source_ids": []
+      },
+      "related": {},
+      "schema_version": "1.0",
+      "status": "ready_for_ai",
+      "tags": []
+    },
+    "tarot.card.major-00": {
+      "changelog": [
+        {
+          "date": "2026-07-31",
+          "reason": "Initial authoring as the vertical-slice proof card for the Guardian Knowledge Platform.",
+          "reviewer": "karina",
+          "version": "1.0"
+        }
+      ],
+      "data": {
+        "arcana": "major",
+        "contexts": {
+          "decision": "The option that requires courage more than analysis.",
+          "growth": "The step that can only be understood by taking it.",
+          "love": "Entering something new without demanding certainty about how it ends.",
+          "money": "A financial choice made on reasoned trust rather than complete information.",
+          "work": "Starting a role, project, or direction before every risk is fully mapped."
+        },
+        "core_essence": "Standing at the edge of the known, carrying everything needed for the next step without yet knowing what that step requires.\n",
+        "dimensions": {
+          "emotional": "A feeling of openness that hasn't yet been tested by consequence.",
+          "mental": "Thinking in possibility rather than plan.",
+          "practical": "A first, literal step -- a trip, a job, a project -- taken before every variable is controlled for.",
+          "relational": "Entering a connection or situation without a fixed script for how it should go.",
+          "spiritual": "Willingness to be changed by what hasn't happened yet."
+        },
+        "grounded_actions": [
+          "Name one small, reversible version of the leap you're considering, and take just that.",
+          "Write down the one piece of information you'd actually need before this stops feeling like a blind leap."
+        ],
+        "light_expression": "Trust in the process, genuine openness to experience, courage to begin without a guaranteed outcome.\n",
+        "name_he": "השוטה",
+        "reflection_questions": [
+          "What would you do here if you trusted that you could handle whatever came next?",
+          "Is your hesitation protecting you from real risk, or just from feeling uncertain?"
+        ],
+        "reversed_expression": "Hesitation dressed as caution, a real beginning delayed past the point it was ever going to feel fully safe -- or the opposite: leaping without any grounding at all.\n",
+        "safety_notes": "Guardian must not read this card as license to ignore real, material risk (financial, physical, relational safety) -- openness to beginning is not the same as recommending an unexamined leap.\n",
+        "shadow_expression": "Recklessness, refusing to plan, mistaking naivety for faith, ignoring real and visible risk.\n"
+      },
+      "domain": "tarot",
+      "entity_type": "card",
+      "id": "tarot.card.major-00",
+      "name": "The Fool",
+      "provenance": {
+        "claim_ids": [
+          "claim.tarot-0001"
+        ],
+        "confidence": "interpretive",
+        "source_ids": [
+          "source.guardian-editorial"
+        ]
+      },
+      "related": {
+        "concepts": [
+          "concept.new-beginnings"
+        ]
+      },
+      "schema_version": "1.0",
+      "status": "ready_for_ai",
+      "tags": [
+        "major-arcana",
+        "beginnings"
+      ]
+    }
+  },
+  "indexes": {
+    "by_domain": {
+      "claim": [
+        "claim.tarot-0001"
+      ],
+      "concept": [
+        "concept.new-beginnings"
+      ],
+      "source": [
+        "source.guardian-editorial"
+      ],
+      "tarot": [
+        "tarot.card.major-00"
+      ]
+    },
+    "reverse_relations": {
+      "concept.new-beginnings": [
+        "tarot.card.major-00"
+      ]
+    }
+  },
+  "manifest": {
+    "built_at": "2026-07-31T14:47:30.027820+00:00",
+    "content_hash": "sha256:c0dd109800d3cb206bc7a418721e0af48b8be7b19ab7218f9552cbfc2f796e4e",
+    "counts": {
+      "claim.claim": 1,
+      "concept.concept": 1,
+      "source.source": 1,
+      "tarot.card": 1
+    },
+    "format": "json",
+    "gate": "ready_for_ai"
+  }
+}

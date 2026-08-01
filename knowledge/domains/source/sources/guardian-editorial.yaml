@@ -1,0 +1,19 @@
+id: source.guardian-editorial
+domain: source
+entity_type: source
+name: Guardian Editorial Synthesis
+status: ready_for_ai
+provenance:
+  confidence: interpretive
+changelog:
+  - version: "1.0"
+    date: "2026-07-31"
+    reason: "Initial entry: represents Guardian's own synthesized tarot interpretation, not a specific external text."
+    reviewer: karina
+data:
+  source_type: guardian_internal
+  notes: >
+    Used for card content authored by Guardian directly from common, widely-shared
+    tarot tradition rather than a single cited external work. Confidence is
+    interpretive, not primary, until a specific external source is identified
+    and cited per card.

@@ -1,0 +1,26 @@
+id: claim.tarot-0001
+domain: claim
+entity_type: claim
+name: "The Fool represents unlimited potential rather than foolishness"
+status: ready_for_ai
+provenance:
+  confidence: interpretive
+  source_ids:
+    - source.guardian-editorial
+changelog:
+  - version: "1.0"
+    date: "2026-07-31"
+    reason: "Initial claim to support the tarot vertical slice."
+    reviewer: karina
+data:
+  statement: >
+    Across common tarot tradition, The Fool (card 0) is read as boundless
+    potential and the start of a journey, not as foolishness in the
+    pejorative sense -- the everyday word "fool" is a false-friend reading
+    of the card.
+  claim_type: traditional
+  confidence: medium
+  disputed: false
+  evidence_note: >
+    Widely repeated across popular tarot literature; not sourced here to
+    one specific citable text.
