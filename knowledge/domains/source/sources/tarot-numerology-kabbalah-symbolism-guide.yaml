@@ -10,6 +10,18 @@ changelog:
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
     reviewer: null
+  - version: "0.2"
+    date: "2026-08-02"
+    reason: "Classified during a scan of all sources/tarot/ material: perspective, strengths, and licensing check added to notes; tags added."
+    reviewer: null
+tags:
+  - historical
+  - kabbalistic-esoteric
+  - numerological
+  - golden-dawn-tradition
+related:
+  duplicate_of:
+    - source.numerology-kabbalah-tarot-synergy-guide
 data:
   source_type: pdf
   reference_url: sources/tarot/המדריך המלא_ נומרולוגיה, קבלה וסמליות המספרים בטארוט.pdf
@@ -21,3 +33,39 @@ data:
     explicitly freezes until Tarot+Numerology are further along —
     registered for inventory completeness only, not a near-term extraction
     candidate.
+
+    CLASSIFICATION: historical/scholarly + esoteric-Kabbalistic (Golden
+    Dawn/Hermetic tradition) + Pythagorean numerology. The only one of the
+    four tarot sources that cites a real, named tarot historian (Michael
+    Dummett, author of "The Game of Tarot") and gives verifiable history:
+    78-card deck, unnumbered 15th-century Italian origin, and A.E. Waite's
+    documented 1909 Rider-Waite-Smith redesign (swapping Strength to VIII
+    and Justice to XI to align with astrology). Also covers the Fool's
+    Journey through the Major Arcana as three stages, Kabbalistic
+    Tree-of-Life/Hebrew-letter correspondences, Pythagorean number-reduction
+    groupings for the Major Arcana, and pip-card (Minor Arcana) numerological
+    staging (Ace=seed through 10=completion). Includes specific ritual
+    practices (deck attunement, sleeping with the deck, "Knock Once"
+    cleansing) presented as generic technique rather than attributed to a
+    specific lineage.
+
+    UNIQUE CONTRIBUTION: the only source giving Guardian a defensible,
+    citable factual backbone (real history, real historian) alongside a
+    well-organized esoteric correspondence layer. Broadest and most
+    cross-referencing of the four; least experiential/applied.
+
+    CAVEAT: correctly separates documented history from esoteric doctrine
+    in its own framing, but if synthesized, Guardian must preserve that
+    separation explicitly — present the Dummett/Waite history as fact, and
+    the Kabbalistic correspondences and ritual practices as "one tradition's
+    interpretation," not as universal fact themselves.
+
+    LICENSING: searched full extracted text for rights/license language —
+    found no notice either restrictive or permissive, and no named living
+    author in the document itself (only historical figures it cites:
+    Dummett, Waite).
+
+    DUPLICATE: see source.numerology-kabbalah-tarot-synergy-guide — same
+    title/opening text, registered from a different path in sources/,
+    hash differs by design of the SOP (new path = new registration) but
+    content appears identical on inspection.

@@ -10,6 +10,15 @@ changelog:
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
     reviewer: null
+  - version: "0.2"
+    date: "2026-08-02"
+    reason: "Classified during a scan of all sources/tarot/ material: perspective, strengths, and licensing check added to notes; tags added."
+    reviewer: null
+tags:
+  - practical-methodology
+  - card-combinations
+  - rider-waite-smith
+  - elemental-dignities
 data:
   source_type: pdf
   author: ג'וזפין אלרשו
@@ -20,3 +29,26 @@ data:
     5-page guide on reading multi-card combinations rather than single-card
     meanings. Doesn't map directly onto the single-card CardKnowledge
     schema as-is.
+
+    CLASSIFICATION: practical/methodological, Rider-Waite-Smith-based.
+    Teaches an elemental-dignities-style technique for reading multiple
+    cards together: suit-element dominance, pacing ("flow"), polarity,
+    repeated numbers, and "shadowed" cards (a positive card boxed in by
+    negative neighbors). Worked example covers the full Wands suit
+    (Ace-9) with keywords and specific combination pairings; methodology
+    is general-purpose but the worked example doesn't cover the other
+    three suits or Major Arcana.
+
+    UNIQUE CONTRIBUTION: the only source among the four tarot-content
+    files in sources/tarot/ that teaches card-to-card reading dynamics
+    rather than single-card meaning. Most relevant to a future spread-
+    reading or combinations capability, not to individual CardKnowledge
+    essence/expression fields.
+
+    LICENSING: searched full extracted text for rights/license language
+    (זכויות / רישיון / license / copyright / אישור / Creative Commons /
+    public domain) — found no restrictive notice, but the content is
+    explicitly attributed throughout to a named author (ג'וזפין אלרשו /
+    Josephine Ellershaw), so default copyright protection applies
+    regardless. Usage-rights relationship with this author is not stated
+    in the document and isn't otherwise confirmed.

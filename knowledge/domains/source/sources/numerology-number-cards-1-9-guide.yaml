@@ -10,6 +10,18 @@ changelog:
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
     reviewer: null
+  - version: "0.2"
+    date: "2026-08-02"
+    reason: "Cross-referenced against source.tarot-numerological-number-cards-guide during a scan of sources/tarot/; tags added."
+    reviewer: null
+tags:
+  - numerological
+  - intuitive
+  - personal-development
+  - proprietary-method
+related:
+  revised_edition_of:
+    - source.tarot-numerological-number-cards-guide
 data:
   source_type: pdf
   author: רויטל כהן

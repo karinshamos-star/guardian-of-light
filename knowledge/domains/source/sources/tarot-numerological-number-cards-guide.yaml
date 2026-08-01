@@ -10,6 +10,18 @@ changelog:
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
     reviewer: null
+  - version: "0.2"
+    date: "2026-08-02"
+    reason: "Classified during a scan of all sources/tarot/ material: perspective, strengths, licensing check, and edition cross-reference added; tags added."
+    reviewer: null
+tags:
+  - numerological
+  - intuitive
+  - personal-development
+  - proprietary-method
+related:
+  earlier_edition_of:
+    - source.numerology-number-cards-1-9-guide
 data:
   source_type: pdf
   author: רויטל כהן
@@ -21,3 +33,32 @@ data:
     "frequency" to tarot's minor-arcana pip cards 1-9. Cross-domain
     (numerology within tarot) — more complex than a single-domain first
     validation slice.
+
+    CLASSIFICATION: intuitive/personal-development, a proprietary
+    "strategic numerology" system attributed throughout to רויטל כהן
+    (Roytal Cohen), who is described in-text as drawing on other named
+    practitioners for tarot correspondences (שרה ברק / Sarah Berk) and
+    Hebrew-letter correspondences (אילי גולדברג / Eli Goldberg) — i.e.
+    this source is itself already a synthesis of more than one teacher's
+    material, not a single-tradition primary text.
+
+    UNIQUE CONTRIBUTION / LIMITATION FOR TAROT SPECIFICALLY: interprets
+    the *numbers* 1-9, using tarot's numbered pip cards as one of several
+    illustrative vessels (the same number content applies outside tarot
+    too) — it does not interpret tarot card imagery or symbolism as such.
+    Most relevant to Minor Arcana numbered cards once Guardian reaches
+    them, not to Major Arcana or to card-specific visual/story meaning.
+
+    EDITION: see source.numerology-number-cards-1-9-guide — same author
+    and method, different file (different hash/content), registered from
+    sources/numerology/ during a later rescan. Appears to be a revised or
+    re-exported edition of this document with a more polished, more
+    schema-friendly structure (explicit "promoting/blocking frequency"
+    bullets per number). Treat the numerology/ edition as the more
+    current version if both are ever considered for extraction.
+
+    LICENSING: searched full extracted text for rights/license language —
+    found no restrictive notice (unlike source.numerology-number-interpretations-01,
+    same author, which does carry one). Content is attributed throughout
+    to this named author, so default copyright still applies regardless of
+    notice; actual usage-rights relationship is not stated in the document.

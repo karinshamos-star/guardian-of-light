@@ -10,6 +10,18 @@ changelog:
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
     reviewer: null
+  - version: "0.2"
+    date: "2026-08-02"
+    reason: "Classified during a scan of all sources/tarot/ material: tags and duplicate cross-reference added, matching source.tarot-numerology-kabbalah-symbolism-guide."
+    reviewer: null
+tags:
+  - historical
+  - kabbalistic-esoteric
+  - numerological
+  - golden-dawn-tradition
+related:
+  duplicate_of:
+    - source.tarot-numerology-kabbalah-symbolism-guide
 data:
   source_type: pdf
   reference_url: sources/numerology/המדריך המלא_ נומרולוגיה, קבלה וסמליות המספרים בטארוט.pdf

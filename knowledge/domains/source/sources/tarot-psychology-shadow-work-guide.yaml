@@ -10,6 +10,16 @@ changelog:
     date: "2026-08-01"
     reason: "Registered from sources/ scan (automated intake; bibliographic details not yet verified)."
     reviewer: null
+  - version: "0.2"
+    date: "2026-08-02"
+    reason: "Classified during a scan of all sources/tarot/ material: perspective, strengths, and licensing check added to notes; tags added."
+    reviewer: null
+tags:
+  - psychological
+  - jungian
+  - shadow-work
+  - kabbalistic-esoteric
+  - unverified-history
 data:
   source_type: pdf
   reference_url: sources/tarot/סיכום מקיף_ פסיכולוגיית הטארוט ועבודה עם הצל.pdf
@@ -20,3 +30,37 @@ data:
     ("Enlightenment Tarot") rather than a predictive tool. Likely better
     suited to Concept entities (e.g. a shadow-work concept) than
     CardKnowledge.
+
+    CLASSIFICATION: psychological/Jungian, layered on a Hermetic-Kabbalistic
+    structure (Tree of Life, ten sefirot mapped to psychological strata).
+    Explicitly self-identifies as written by "Jungian psychologists."
+    Distinguishes feelings from emotions, frames the reader's ego/body as
+    an "avatar," and does deliberate "shadow work" — tracing outer
+    difficulty back to inner cause, with an emphasis on self-responsibility
+    and non-judgment.
+
+    UNIQUE CONTRIBUTION: by far the most reflective, therapeutic, and
+    non-fatalistic of the four tarot sources — closest in tone to
+    Guardian's own stated voice (reflective, non-prescriptive). Strongest
+    candidate for informing light/shadow_expression and reflection_questions
+    tone, and for a standalone shadow-work Concept entity.
+
+    CAVEATS: (1) presents a specific origin story — tarot as a 13th-century
+    "book of illumination" from Fez, Morocco, disguised as a card game to
+    evade the Inquisition — as settled fact, with no citation. This is not
+    the mainstream documented history (see source.tarot-numerology-kabbalah-symbolism-guide,
+    which cites the actual historian Michael Dummett and the real 15th-century
+    Italian origin). Do not carry this specific origin claim into canonical
+    content as fact. (2) Renames several Major Arcana cards (Devil ->
+    Adversity, Chariot -> Influence, Hanged Man -> Sacrifice, Death ->
+    Transformation) as part of its own "Enlightenment Tarot" system. Useful
+    as an interpretive lens, but Guardian should keep the traditional card
+    names as canonical, not adopt this source's renaming.
+
+    No author name is given for this document itself (unlike the Ellershaw
+    or Roytal Cohen material) — reads as course/study notes rather than a
+    single named author's published work.
+
+    LICENSING: searched full extracted text for rights/license language —
+    found no notice either restrictive or permissive. No named author to
+    attribute copyright to within the document itself.
