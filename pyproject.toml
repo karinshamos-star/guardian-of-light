@@ -21,7 +21,8 @@ dev = [
   "httpx>=0.27,<1"
 ]
 extraction = [
-  "pypdf>=4,<6"
+  "pypdf>=4,<6",
+  "pillow>=10,<12"
 ]
 
 [tool.pytest.ini_options]

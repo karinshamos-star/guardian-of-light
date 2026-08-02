@@ -1,0 +1,66 @@
+id: source.tarot-big-book-of-tarot-meanings
+domain: source
+entity_type: source
+name: The Big Book of Tarot Meanings — The Beginner's Guide to Reading the Cards
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-02"
+    reason: "Registered from sources/tarot/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+tags:
+  - iconography
+  - baseline-meaning
+  - rider-waite-smith
+  - screenshotted-ebook
+data:
+  source_type: book
+  author: Sam Magdaleno
+  reference_url: "sources/tarot/טארוט משמעות עתיקה.pdf"
+  notes: >
+    sha256: 0c30fd56e8931e53cf19be85d5919a037e3657c7a8e3c3e5b9c7f9b7b49252a
+
+    591 pages (Kindle pagination), 334 PDF pages — each PDF page is a
+    single full-page screenshot image (3024x1964), no text layer, no OCR.
+    Confirmed via sampled pages (cover, p.10, p.73, p.101): this is a
+    page-by-page Kindle-app screenshot capture of a real, currently
+    identifiable, commercially published book — "The Big Book of Tarot
+    Meanings" by Sam Magdaleno ("Creator of Sam, The Cosmic Witch"),
+    viewed through what is visibly a Kindle reading app (the "Location X
+    of 5373" progress indicator is Kindle's own UI).
+
+    CONTENT/STRUCTURE (from sampled pages): per card — full reproduction
+    of a Rider-Waite-Smith card image, a paragraph directly describing and
+    interpreting the card's visual symbolism (e.g. Strength: "a woman
+    clothed in a white gown... adorned with a wreath... an infinity
+    symbol... the lion, symbolizing passion..."), an upright keyword list,
+    and (per the book's own "How to Use This Book" page) a reversed
+    keyword list plus meaning broken into eight life-area categories per
+    card: Beginnings, Career, Money, Love, Friends & Family, Health,
+    Higher Guidance, Outcome.
+
+    LAYER FIT: exceptionally strong match for the two acquisition-plan
+    priorities — genuine per-card Symbolic Language (Layer 2) description
+    tied directly into interpretation, plus full upright/reversed
+    Canonical Meaning (Layer 3) coverage. The eight-category structure is
+    also the closest anything in the library has come to Lived Application
+    (Layer 5) content, though that layer must still be written in
+    Guardian's own voice per synthesis/tarot/README.md, not transcribed
+    from this structure.
+
+    LICENSING — the dominant concern for this source, more serious than
+    "no notice found" cases seen elsewhere in this library: this is a
+    screen-captured copy of a real, identifiable, apparently
+    currently-in-print retail book, not an ambiguous or self-published
+    PDF. The Rider-Waite-Smith card images reproduced on each page carry
+    a visible "© 1990 U.S. Games Systems, Inc." copyright watermark —
+    U.S. Games Systems is the actively-enforced copyright holder for RWS
+    deck reproductions. Do not treat this source as cleared for use, and
+    do not proceed to extraction/synthesis from it, without first
+    confirming the actual usage-rights situation (e.g. personal-copy
+    ownership does not by itself grant reproduction or redistribution
+    rights). Flagging explicitly per PROJECT_STATE.md's "no source-derived
+    content may reach ready_for_ai while usage rights are unresolved" rule
+    — this one should not advance past draft/needs_review until resolved.

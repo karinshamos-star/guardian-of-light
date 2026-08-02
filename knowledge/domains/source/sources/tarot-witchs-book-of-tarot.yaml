@@ -1,0 +1,55 @@
+id: source.tarot-witchs-book-of-tarot
+domain: source
+entity_type: source
+name: "The Witch's Book of Tarot: Cards, Symbols, Spreads, and the Art of Reading Fate"
+status: draft
+provenance:
+  confidence: unverified
+changelog:
+  - version: "0.1"
+    date: "2026-08-02"
+    reason: "Registered from sources/tarot/ scan (automated intake; bibliographic details not yet verified)."
+    reviewer: null
+tags:
+  - interpretive-essay
+  - numerological
+  - screenshotted-ebook
+data:
+  source_type: book
+  author: Mina Fowler
+  reference_url: "sources/tarot/טארוט סמלים 1.pdf"
+  notes: >
+    sha256: a14fa2be9fccab1d6fc90ae1dd294a0759b54ca9429cc4c56c6bc1aea2d98cc
+
+    1549 pages (Kindle pagination), 108 PDF pages — each PDF page a
+    full-page screenshot image (3024x1964), no text layer, no OCR.
+    Confirmed via sampled pages (cover, p.31): a page-by-page Kindle-app
+    screenshot capture of a real, commercially published book — "The
+    Witch's Book of Tarot: Cards, Symbols, Spreads, and the Art of
+    Reading Fate" by Mina Fowler.
+
+    CONTENT/STRUCTURE (from sampled pages): essay/prose style rather than
+    a per-card template — e.g. a passage on Pentacles-suit personality
+    and general meaning, then a "Numbered Cards: Aces Through Tens"
+    section giving generic cross-suit numerological meaning (Aces =
+    purest/undivided expression of the suit's element, Twos = partnership/
+    duality, Threes = expansion, etc.) illustrated with specific card
+    examples. Title implies a spreads section too (relational/combinatorial
+    — out of scope for the six-layer card model per synthesis/tarot/README.md).
+    No per-card imagery description observed in the sampled pages (unlike
+    source.tarot-big-book-of-tarot-meanings).
+
+    LAYER FIT: weaker structural fit than the other two new registrations
+    for Layers 2/3 specifically — this reads more like a complementary
+    interpretive voice (closer in spirit to the existing
+    tarot-numerology-kabbalah-symbolism-guide's generic numerological
+    grouping, but in an essay register) than a systematic per-card
+    reference. May be more useful as a secondary voice once a baseline
+    exists than as the baseline itself.
+
+    LICENSING — same category of concern as
+    source.tarot-big-book-of-tarot-meanings: a screen-captured copy of a
+    real, identifiable, apparently currently-in-print retail book, not an
+    ambiguous PDF. Do not treat as cleared for use or proceed to
+    extraction/synthesis without confirming actual usage rights. Should
+    not advance past draft/needs_review until resolved.
