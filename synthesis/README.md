@@ -76,14 +76,46 @@ Body — four sections, in this order:
 4. **Safety / fit for Guardian's voice** — does this read as reflective
    and non-prescriptive, consistent with how Guardian talks elsewhere
    (mirrors the `safety_notes` field already used on `CardKnowledge`).
+5. **Cross-entity pattern recognition** — a required editorial step, not
+   an optional aside. Ask explicitly: does this entity's meaning
+   reinforce an existing `Concept`, or does it point at a recurring
+   principle worth capturing that isn't tracked yet? Answer even when the
+   answer is "no clear connection yet" — that's a legitimate answer, not
+   a skipped step. See "Concepts emerge, they aren't invented up front"
+   below for how to act on what this turns up.
+
+Note the difference between sections 2 and 5: section 2 compares the
+*sources cited for this one entity* against each other. Section 5
+compares *this entity* against everything else already synthesized —
+different traditions, different domains, entities with no source overlap
+at all. That's the connective tissue the Cross-Tradition Architecture
+Principle in `PROJECT_STATE.md` describes: independently-authored
+entities that turn out to share a theme, discovered at synthesis time,
+never engineered in by a shared parent model.
+
+## Concepts emerge, they aren't invented up front
+
+A `Concept` should not be created the first time a theme appears in a
+synthesis document. A theme seen once stays as prose within that entity's
+own Canonical Meaning — it doesn't need a name of its own yet. Only once
+the same pattern shows up again, independently, in a *different* entity
+authored from different source material, does it become a real candidate
+for its own `Concept` entity that both entities link to via `related`.
+
+This keeps `Concept` growing from actual repeated evidence across the
+corpus rather than from a synthesizer's a-priori theory of what the
+important themes ought to be — the same discipline already applied to
+everything else in this pipeline: don't build ahead of what's actually
+been observed.
 
 ## Review
 
 Checks: is this genuinely synthesized rather than reworded from a single
-extraction document, safe and in-voice, and — when only one source
-informed it — is that honestly reflected in the compiled entity's
-`provenance.confidence` (usually `interpretive`, not `primary`, in that
-case)?
+extraction document, safe and in-voice, was cross-entity pattern
+recognition actually done (not left blank by omission), and — when only
+one source informed it — is that honestly reflected in the compiled
+entity's `provenance.confidence` (usually `interpretive`, not `primary`,
+in that case)?
 
 ## Domain-specific editorial standards
 

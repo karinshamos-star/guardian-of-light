@@ -22,6 +22,11 @@ Extraction documents are not schema-validated the way `knowledge/` YAML is —
 that looseness is intentional. This is where interpretive judgment happens,
 before it's forced into the canonical entity shape.
 
+**The purpose of extraction is understanding, not reproducing.** A source
+is a teacher, not the product — extraction exists to let Guardian learn
+from it, not to copy it. That distinction matters most in what section 1
+below actually contains.
+
 ## What belongs here
 
 An extraction document describes **what is in the source** — it is strictly
@@ -61,9 +66,21 @@ reviewed_date: null
 
 Body — four explicit sections, in this order, every time:
 
-1. **Direct quotes** — verbatim text from the source, quoted, with enough
-   location detail (already covered by `source_refs`, repeat inline if a
-   single document draws from multiple locations) to trace it back.
+1. **Direct quotes** — before writing this section, check the cited
+   `Source` entity's `data.notes` for a licensing flag. For an ordinary
+   source with no rights concern noted, brief verbatim quotes are fine,
+   with enough location detail (already covered by `source_refs`, repeat
+   inline if a single document draws from multiple locations) to trace
+   them back. **For a source flagged rights-sensitive** (unresolved usage
+   rights, an identifiable commercial work, etc. — see, for example,
+   `source.tarot-big-book-of-tarot-meanings`'s `notes`) — prioritize
+   faithful paraphrase with precise source references over verbatim
+   quotation. A short quotation (a phrase, a sentence) is still fine when
+   the source's *exact wording* is itself what's being analyzed; extended
+   verbatim passages are not, regardless of how interesting the source
+   is. If in doubt, paraphrase and cite the location — extraction can
+   always point precisely at what it's drawing from without reproducing
+   it.
 2. **Source-derived paraphrase** — the source's content in Guardian's own
    words, without adding meaning the source doesn't contain. A restatement,
    not an extension.
