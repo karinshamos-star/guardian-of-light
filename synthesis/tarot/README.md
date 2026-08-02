@@ -188,3 +188,11 @@ For reference only — this model doesn't define or constrain the schema:
 Layer 2 (Symbolic Language) has no dedicated field today — whether it
 needs one, or stays folded into how `core_essence` gets written, is a
 schema question for later, not something this document decides.
+
+## Known source gaps
+
+`source-acquisition-plan.md` in this directory tracks which layers the
+current `sources/tarot/` library does and doesn't support well, and what
+kind of source would close each gap. Consult it before assuming a layer
+is unsupported for a given card — and update it if a newly registered
+source changes the picture for a layer it currently marks as thin.
