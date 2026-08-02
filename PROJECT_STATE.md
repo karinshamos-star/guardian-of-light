@@ -86,6 +86,49 @@ Two subsystems, both mature:
      `guardian_core` actually loads. Only `ready_for_ai`-gated entities are
      included.
 
+## Cross-Tradition Architecture Principle
+
+Guardian is not a Tarot app; it's a platform meant to eventually unify
+Tarot, Numerology, Astrology, Human Design, and future systems into one
+coherent experience. That ambition is deliberately **not** solved by a
+shared knowledge model:
+
+- **Domain-native entities remain the fundamental authoring unit, for
+  every tradition.** A `CardKnowledge` entity is a complete, correct Tarot
+  card on its own terms; a `NumberKnowledge` entity is a complete, correct
+  number on its own terms. The same holds for any future tradition's
+  domain schema. No entity is modeled as an "expression of" some
+  more-fundamental parent — there is no such parent entity.
+- **`Concept` (and `related`) stay a peer, not a root.** Entities may
+  optionally link to a shared `Concept` (an archetype/theme) when a link
+  is genuinely warranted — the same way `tarot.card.major-00` already
+  links to `concept.new-beginnings`. Nothing requires every entity to link
+  to one, and no entity's own correctness depends on doing so.
+- **Cross-tradition resonance is an experience-layer capability, not a
+  knowledge-model requirement.** During a reading, Guardian may notice
+  that a drawn Tarot card, a Numerology number, and (eventually) an
+  Astrological placement independently point toward the same underlying
+  life theme, and explain that coherently to the user. That noticing
+  happens by composing independently-authored, independently-correct
+  entities at read/experience time — never by forcing them to share a
+  parent entity or a single cross-tradition taxonomy at the knowledge
+  layer.
+
+This was decided after explicitly considering, and rejecting, an
+"Archetype/Universal Principle as root entity, tradition-entities as
+expressions of it" model. Rejected because: it presumes traditions
+decompose the same way, which they don't (a tarot card, a numerology
+number, and an astrological placement are structurally very different
+kinds of thing); it would force Guardian to privilege one specific
+cross-tradition correspondence theory (e.g. a Golden Dawn-style
+Tarot-Astrology attribution — the kind of thing already flagged as one
+tradition's view, not fact, in `synthesis/tarot/README.md`) as
+foundational architecture rather than as an attributed interpretive lens;
+and it would block authoring a new tradition until a shared cross-tradition
+taxonomy is solved, which fights the actual per-source, per-tradition
+authoring workflow (`sources/` → `extraction/` → `synthesis/` →
+`knowledge/`) already built and validated this session.
+
 ## Licensing & Usage Rights
 
 External sources in `sources/` remain subject to ordinary copyright and
@@ -175,6 +218,7 @@ The original vertical slice — 4 `ready_for_ai` entities (`tarot.card.major-00`
 - Whether `knowledge_package.json` rebuilds should be a pre-commit hook or remain a manual step.
 - Whether `CalculationMethod.inputs` should become structured/typed rather than free-text strings.
 - Whether the extraction → synthesis → YAML compile steps should eventually be scripted. Currently manual by design; revisit once the same transcription pattern repeats often enough to justify the infrastructure.
+- How cross-tradition resonance actually gets found at the experience layer — matching shared `Concept` links, a future attributed `Correspondence`-style cross-cutting entity, runtime AI synthesis over independently-authored entities, or some combination. Deliberately undecided; revisit once more than one tradition has real authored content to test against, per the "Cross-Tradition Architecture Principle" above.
 
 ## Do NOT Redesign or Change
 
@@ -188,6 +232,7 @@ The original vertical slice — 4 `ready_for_ai` entities (`tarot.card.major-00`
 - The web client must stay generic (branch on `interaction.type` only) — never re-encode narrative logic client-side.
 - Canonical knowledge (`knowledge/`) must never be authored directly and must never be a transcription of any single external source — it is compiled from a reviewed `synthesis/` document, which itself synthesizes (not just aggregates) across `extraction/` documents. This holds even when only one source exists for a given entity.
 - No source-derived entity may reach `status: ready_for_ai` while its source's usage rights are unresolved — see "Licensing & Usage Rights" above.
+- Domain-native entities (`CardKnowledge`, `NumberKnowledge`, and future per-tradition schemas) are the fundamental authoring unit — do not model them as expressions of a required parent Archetype/Concept entity. `Concept` stays an optional peer, linked only when warranted. Cross-tradition resonance belongs at the experience layer, not the knowledge model — see "Cross-Tradition Architecture Principle" above.
 
 ## Exact Next Implementation Task
 
