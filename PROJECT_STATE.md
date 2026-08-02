@@ -10,6 +10,8 @@ Canonical knowledge is never authored directly, and is never a transcription of 
 
 **Git is initialized and the repo has real commit history.** This is no longer the blocking item it once was — see "Current Implementation Status" and "Exact Next Implementation Task" below for what's actually next.
 
+**As of 2026-08-02, the knowledge architecture is considered stable and frozen.** Extensive design work this session (the `sources/` → `extraction/` → `synthesis/` → `knowledge/` pipeline, the six-layer Tarot editorial standard, the Cross-Tradition Architecture Principle) is done. Work now proceeds on two parallel tracks: **knowledge creation and editorial quality** (authoring real entities through the frozen pipeline as the source library grows) and **product UX/UI** (not detailed in this document — see `VISION.md`). Further architecture or infrastructure changes should be reactive to a concrete problem hit during that work, not speculative — see "Do NOT Redesign or Change" below.
+
 ## Repository Structure
 
 ```
@@ -187,7 +189,9 @@ Schema validation; ID format + uniqueness; file path matches `domains/<domain>/<
 
 The original vertical slice — 4 `ready_for_ai` entities (`tarot.card.major-00` "The Fool", `source.guardian-editorial`, `claim.tarot-0001`, `concept.new-beginnings`) — is still the only content compiled all the way through to `knowledge/_compiled/knowledge_package.json`, reloaded, and materialized into a typed object. It **predates** `extraction/` and `synthesis/` and was authored editorially, not produced through them — don't treat it as an example of the current authoring workflow, only of the compile/validate/load mechanics.
 
-`sources/` is populated with real reference material (numerology and tarot PDFs). 13 `Source` entities exist in `knowledge/domains/source/sources/`, all `status: draft` except one `deprecated` (its file was removed from `sources/` after registration; never extracted from). **No entity has yet been produced through the full `sources/` → `extraction/` → `synthesis/` → `knowledge/` pipeline** — that first real end-to-end run is the immediate next task (see "Exact Next Implementation Task"), currently blocked on source approval and an unresolved licensing question.
+`sources/` is populated with real reference material (numerology and tarot PDFs, plus three screenshotted commercial ebooks — see below). 18 `Source` entities exist in `knowledge/domains/source/sources/`, all `status: draft` except one `deprecated`. Several are tagged/noted as rights-sensitive per the "Licensing & Usage Rights" rule and must not advance past `needs_review` until that's resolved.
+
+A first real extraction document exists — `extraction/tarot/card/major-00.md` (The Fool), drawing on `source.tarot-numerology-kabbalah-symbolism-guide` and (for general psychological framework only) `source.tarot-psychology-shadow-work-guide`. **No synthesis document or compiled entity has been produced yet through the full pipeline** — extraction is drafted and awaiting review; synthesis is the next step once approved. This remains the first real validation of the pipeline end-to-end.
 
 ## Completed Milestones
 
@@ -233,11 +237,12 @@ The original vertical slice — 4 `ready_for_ai` entities (`tarot.card.major-00`
 - Canonical knowledge (`knowledge/`) must never be authored directly and must never be a transcription of any single external source — it is compiled from a reviewed `synthesis/` document, which itself synthesizes (not just aggregates) across `extraction/` documents. This holds even when only one source exists for a given entity.
 - No source-derived entity may reach `status: ready_for_ai` while its source's usage rights are unresolved — see "Licensing & Usage Rights" above.
 - Domain-native entities (`CardKnowledge`, `NumberKnowledge`, and future per-tradition schemas) are the fundamental authoring unit — do not model them as expressions of a required parent Archetype/Concept entity. `Concept` stays an optional peer, linked only when warranted. Cross-tradition resonance belongs at the experience layer, not the knowledge model — see "Cross-Tradition Architecture Principle" above.
+- **The knowledge architecture itself is frozen as of 2026-08-02.** Do not propose new infrastructure, new pipeline stages, or schema/architecture redesigns speculatively. Only change this system in response to a concrete problem actually hit while authoring real content or building the product — and when that happens, treat it as a deliberate, discussed decision (like everything else in this document), not a quiet addition.
 
 ## Exact Next Implementation Task
 
-Git is initialized; that is no longer the blocking item.
+Git is initialized; the pipeline is designed and documented; that is no longer the blocking item.
 
-**Next: run the first real end-to-end knowledge migration** through the full `sources/` → `extraction/` → `synthesis/` → `knowledge/` → Knowledge Package pipeline — to validate the pipeline itself, not to produce content volume — before touching Remaining Milestone #2 (the other 21 Major Arcana cards) or #5 (Numerology reconciliation).
+**Next: review `extraction/tarot/card/major-00.md` (The Fool) and, once approved, write its synthesis document** — the first real synthesis, applying the six-layer Tarot standard, the paraphrase-first quoting discipline, and the required cross-entity pattern-recognition step (`synthesis/README.md`) for the first time against real content. That completes the first full validation of `sources/` → `extraction/` → `synthesis/` → `knowledge/` → Knowledge Package.
 
-As of this writing, `source.numerology-number-cards-1-9-guide` (registered, `status: draft`) has been recommended as the first candidate on content-quality and structural-fit grounds, but is **not yet approved**. Do not begin extraction until: (a) the user explicitly approves a source, and (b) the usage-rights relationship with that source's author is clear enough to proceed — per "Licensing & Usage Rights" above, unresolved rights don't block getting as far as `needs_review`, but do block `ready_for_ai`.
+In parallel, per the current working mode: as the source library grows, follow the standing `sources/README.md` SOP for each addition (scan → register → evaluate → wait for approval) without treating each one as an occasion to revisit the pipeline design. Architecture changes only in response to a concrete problem — see "Do NOT Redesign or Change" above.
