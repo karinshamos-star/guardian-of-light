@@ -185,22 +185,22 @@ def _command_for(session: WorldSession) -> ExperienceCommand:
         return ExperienceCommand(**common, scene=SceneId.LIBRARY_ENTRANCE, world=_world_for(session, SceneId.LIBRARY_ENTRANCE),
             guide=GuideCue(dialogue="הספרייה מחכה לך מעבר לדלת.", emotion=GuideEmotion.WELCOMING, animation=GuideAnimation.INVITE_FOLLOW),
             camera=CameraCue(mode=CameraMode.FOCUS, target="library_doors", duration_seconds=1.5),
-            interaction=InteractionCue(type=InteractionType.CONTINUE, prompt="להיכנס לספרייה", input_key="enter_library", auto_advance_seconds=3))
+            interaction=InteractionCue(type=InteractionType.CONTINUE, prompt="להיכנס לספרייה", input_key="enter_library", auto_advance_seconds=1.5))
     if session.state is WorldState.GUIDE_GREETING:
         return ExperienceCommand(**common, scene=SceneId.LIBRARY, world=_world_for(session, SceneId.LIBRARY),
             guide=GuideCue(dialogue="ברוכה הבאה. אני לומינה, ואשמור איתך על המרחב הזה.", emotion=GuideEmotion.WELCOMING, animation=GuideAnimation.GREET),
             camera=CameraCue(mode=CameraMode.FOCUS, target="keeper_of_light", duration_seconds=2),
-            interaction=InteractionCue(type=InteractionType.TALK_TO_GUIDE, prompt="לדבר עם לומינה", auto_advance_seconds=4), effects=["fireplace_glow"])
+            interaction=InteractionCue(type=InteractionType.TALK_TO_GUIDE, prompt="לדבר עם לומינה", auto_advance_seconds=1.5), effects=["fireplace_glow"])
     if session.state is WorldState.SECRET_DOOR:
         return ExperienceCommand(**common, scene=SceneId.LIBRARY, world=_world_for(session, SceneId.LIBRARY),
             guide=GuideCue(dialogue="יש מקום שקט יותר לקריאה. בואי אחריי.", emotion=GuideEmotion.REASSURING, animation=GuideAnimation.WALK_TO_BOOKSHELF),
             camera=CameraCue(mode=CameraMode.FOLLOW, target="keeper_of_light", duration_seconds=3),
-            interaction=InteractionCue(type=InteractionType.FOLLOW_GUIDE, prompt="לעקוב אחרי לומינה", auto_advance_seconds=3))
+            interaction=InteractionCue(type=InteractionType.FOLLOW_GUIDE, prompt="לעקוב אחרי לומינה", auto_advance_seconds=1.5))
     if session.state is WorldState.READING_ROOM:
         return ExperienceCommand(**common, scene=SceneId.SECRET_PASSAGE, world=_world_for(session, SceneId.SECRET_PASSAGE),
             guide=GuideCue(dialogue="המדף נפתח. החדר נמצא מעבר למעבר.", emotion=GuideEmotion.THOUGHTFUL, animation=GuideAnimation.OPEN_SECRET_PASSAGE),
             camera=CameraCue(mode=CameraMode.FOCUS, target="secret_passage", duration_seconds=2.5),
-            interaction=InteractionCue(type=InteractionType.CONTINUE, prompt="להיכנס לחדר הסודי", input_key="enter_secret_room", auto_advance_seconds=3), effects=["bookshelf_open", "dust_particles"])
+            interaction=InteractionCue(type=InteractionType.CONTINUE, prompt="להיכנס לחדר הסודי", input_key="enter_secret_room", auto_advance_seconds=1.5), effects=["bookshelf_open", "dust_particles"])
     if session.state is WorldState.QUESTION:
         return ExperienceCommand(**common, scene=SceneId.SECRET_READING_ROOM, world=_world_for(session, SceneId.SECRET_READING_ROOM),
             guide=GuideCue(dialogue="מה מבקש ממך תשומת לב עכשיו?", emotion=GuideEmotion.CURIOUS, animation=GuideAnimation.LISTEN),

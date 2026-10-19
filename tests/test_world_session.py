@@ -123,13 +123,13 @@ def test_passthrough_steps_advertise_auto_advance():
     session.apply(WorldAction.BEGIN)
     command = session.apply(WorldAction.CHOOSE_AVATAR, {"avatar_id": "seeker"})
     assert command.interaction.input_key == "enter_library"
-    assert command.interaction.auto_advance_seconds == 3
+    assert command.interaction.auto_advance_seconds == 1.5
     command = session.apply(WorldAction.ENTER_LIBRARY)
-    assert command.interaction.auto_advance_seconds == 4
+    assert command.interaction.auto_advance_seconds == 1.5
     command = session.apply(WorldAction.TALK_TO_GUIDE)
-    assert command.interaction.auto_advance_seconds == 3
+    assert command.interaction.auto_advance_seconds == 1.5
     command = session.apply(WorldAction.FOLLOW_GUIDE)
     assert command.interaction.input_key == "enter_secret_room"
-    assert command.interaction.auto_advance_seconds == 3
+    assert command.interaction.auto_advance_seconds == 1.5
     # Deliberate steps stay deliberate.
     assert session.apply(WorldAction.ENTER_SECRET_ROOM).interaction.auto_advance_seconds is None
