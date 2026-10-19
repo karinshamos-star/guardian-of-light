@@ -22,7 +22,7 @@ function actionFor(interaction) {
     case "ask_question":
       return { action: "ask_question", buildPayload: (value) => ({ [interaction.input_key || "question"]: value }) };
     case "choose_option":
-      return { action: "choose_avatar", buildPayload: (value) => ({ avatar_id: value }) };
+      return { action: interaction.input_key, buildPayload: (value) => ({ option_id: value }) };
     case "talk_to_guide":
       return { action: "talk_to_guide", buildPayload: () => ({}) };
     case "follow_guide":

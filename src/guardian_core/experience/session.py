@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum
+from datetime import date
 from uuid import uuid4
 
+from guardian_core.numerology import build_numerology_reading, calculate_profile, gematria
 from guardian_core.reading import ReadingResult, project_reading_result, run_reading
 
 from .models import (
@@ -31,6 +33,9 @@ class WorldState(StrEnum):
     SECRET_DOOR = "secret_door"
     READING_ROOM = "reading_room"
     QUESTION = "question"
+    METHOD_CHOICE = "method_choice"
+    NUMEROLOGY_NAME = "numerology_name"
+    NUMEROLOGY_BIRTH = "numerology_birth"
     READING = "reading"
     REFLECTION = "reflection"
     RETURN_TO_LIBRARY = "return_to_library"
@@ -44,6 +49,7 @@ class WorldAction(StrEnum):
     FOLLOW_GUIDE = "follow_guide"
     ENTER_SECRET_ROOM = "enter_secret_room"
     ASK_QUESTION = "ask_question"
+    CHOOSE_METHOD = "choose_method"
     COMPLETE_READING = "complete_reading"
     REFLECT = "reflect"
     RETURN = "return"
@@ -64,6 +70,9 @@ class WorldSession:
     })
     guide_activity: str = "waiting_at_entrance"
     reading_result: ReadingResult | None = None
+    method: str | None = None
+    full_name: str | None = None
+    birth_date: date | None = None
 
     def command(self) -> ExperienceCommand:
         self.sequence += 1
@@ -82,7 +91,23 @@ class WorldSession:
             if not avatar_id:
                 raise ValueError("avatar_id is required")
             self.avatar_id = avatar_id
-        if action is WorldAction.ASK_QUESTION:
+        target = allowed[action]
+
+        if action is WorldAction.ASK_QUESTION and self.state is WorldState.NUMEROLOGY_NAME:
+            full_name = " ".join(str(payload.get("full_name", "")).split())
+            if not full_name:
+                raise ValueError("full_name is required")
+            if gematria(full_name) == 0:
+                raise ValueError(_NUMEROLOGY_ERRORS["full_name must contain Hebrew letters"])
+            self.full_name = full_name
+        elif action is WorldAction.ASK_QUESTION and self.state is WorldState.NUMEROLOGY_BIRTH:
+            self.birth_date = _parse_birth_date(str(payload.get("birth_date", "")))
+            try:
+                profile = calculate_profile(birth_date=self.birth_date, full_name=self.full_name or "")
+            except ValueError as exc:
+                raise ValueError(_NUMEROLOGY_ERRORS.get(str(exc), str(exc))) from exc
+            self.reading_result = build_numerology_reading(profile)
+        elif action is WorldAction.ASK_QUESTION:
             question = str(payload.get("question", "")).strip()
             if not question:
                 raise ValueError("question is required")
@@ -91,19 +116,27 @@ class WorldSession:
             # and the stale clarification result must be cleared so the flow can advance.
             self.question = f"{self.question} {question}".strip() if awaiting_clarification and self.question else question
             self.reading_result = None
+        elif action is WorldAction.CHOOSE_METHOD:
+            method = str(payload.get("option_id", "")).strip()
+            if method not in METHODS:
+                raise ValueError(f"option_id must be one of: {', '.join(METHODS)}")
+            self.method = method
+            if method == "numerology":
+                target = WorldState.NUMEROLOGY_NAME
 
         if action is WorldAction.COMPLETE_READING:
             outcome = run_reading(question=self.question or "", seed=payload.get("seed"))
             self.reading_result = project_reading_result(outcome)
             if outcome.status == "completed":
-                self.state = allowed[action]
+                self.state = target
                 self._apply_world_effects(action)
         else:
-            self.state = allowed[action]
-            self._apply_world_effects(action)
+            previous = self.state
+            self.state = target
+            self._apply_world_effects(action, previous)
         return self.command()
 
-    def _apply_world_effects(self, action: WorldAction) -> None:
+    def _apply_world_effects(self, action: WorldAction, previous: WorldState | None = None) -> None:
         if action is WorldAction.ENTER_LIBRARY:
             self.object_states["library_doors"] = "open"
             self.guide_activity = "greeting_visitor"
@@ -116,8 +149,17 @@ class WorldSession:
         elif action is WorldAction.ENTER_SECRET_ROOM:
             self.object_states["secret_door"] = "open"
             self.guide_activity = "waiting_by_reading_table"
+        elif action is WorldAction.ASK_QUESTION and previous is WorldState.QUESTION:
+            self.guide_activity = "offering_methods"
+        elif action is WorldAction.ASK_QUESTION and previous is WorldState.NUMEROLOGY_NAME:
+            self.guide_activity = "preparing_numerology"
+        elif action is WorldAction.ASK_QUESTION and previous is WorldState.NUMEROLOGY_BIRTH:
+            self.object_states["reading_book"] = "created"
+            self.guide_activity = "holding_reflective_space"
         elif action is WorldAction.ASK_QUESTION:
             self.guide_activity = "preparing_reading"
+        elif action is WorldAction.CHOOSE_METHOD:
+            self.guide_activity = "preparing_numerology" if self.method == "numerology" else "preparing_reading"
         elif action is WorldAction.COMPLETE_READING:
             self.object_states["reading_book"] = "created"
             self.guide_activity = "holding_reflective_space"
@@ -129,13 +171,17 @@ class WorldSession:
 
 
 TRANSITIONS: dict[WorldState, dict[WorldAction, WorldState]] = {
-    WorldState.ARRIVAL: {WorldAction.BEGIN: WorldState.AVATAR_SELECTION},
-    WorldState.AVATAR_SELECTION: {WorldAction.CHOOSE_AVATAR: WorldState.LIBRARY_ENTRANCE},
+    # AVATAR_SELECTION is kept in WorldState for contract compatibility but is no longer
+    # reachable: it had no effect on the experience (see EXPERIENCE_FLOW_V1.md §1.5).
+    WorldState.ARRIVAL: {WorldAction.BEGIN: WorldState.LIBRARY_ENTRANCE},
     WorldState.LIBRARY_ENTRANCE: {WorldAction.ENTER_LIBRARY: WorldState.GUIDE_GREETING},
     WorldState.GUIDE_GREETING: {WorldAction.TALK_TO_GUIDE: WorldState.SECRET_DOOR},
     WorldState.SECRET_DOOR: {WorldAction.FOLLOW_GUIDE: WorldState.READING_ROOM},
     WorldState.READING_ROOM: {WorldAction.ENTER_SECRET_ROOM: WorldState.QUESTION},
-    WorldState.QUESTION: {WorldAction.ASK_QUESTION: WorldState.READING},
+    WorldState.QUESTION: {WorldAction.ASK_QUESTION: WorldState.METHOD_CHOICE},
+    WorldState.METHOD_CHOICE: {WorldAction.CHOOSE_METHOD: WorldState.READING},
+    WorldState.NUMEROLOGY_NAME: {WorldAction.ASK_QUESTION: WorldState.NUMEROLOGY_BIRTH},
+    WorldState.NUMEROLOGY_BIRTH: {WorldAction.ASK_QUESTION: WorldState.REFLECTION},
     WorldState.READING: {
         WorldAction.ASK_QUESTION: WorldState.READING,
         WorldAction.COMPLETE_READING: WorldState.REFLECTION,
@@ -143,6 +189,23 @@ TRANSITIONS: dict[WorldState, dict[WorldAction, WorldState]] = {
     WorldState.REFLECTION: {WorldAction.REFLECT: WorldState.RETURN_TO_LIBRARY},
     WorldState.RETURN_TO_LIBRARY: {WorldAction.RETURN: WorldState.GUIDE_GREETING},
 }
+
+
+METHODS = ("tarot", "numerology")
+
+_NUMEROLOGY_ERRORS = {
+    "birth_date is in the future": "תאריך הלידה נמצא בעתיד. אפשר לנסות שוב?",
+    "full_name must contain Hebrew letters": "השם צריך להיכתב באותיות עבריות.",
+}
+
+
+def _parse_birth_date(text: str) -> date:
+    parts = [p for p in text.replace("/", ".").replace("-", ".").replace(" ", ".").split(".") if p]
+    try:
+        day, month, year = (int(p) for p in parts)
+        return date(year, month, day)
+    except (ValueError, TypeError):
+        raise ValueError("תאריך הלידה צריך להיכתב כך: יום.חודש.שנה, למשל 15.03.1990") from None
 
 
 def new_session() -> WorldSession:
@@ -206,6 +269,19 @@ def _command_for(session: WorldSession) -> ExperienceCommand:
             guide=GuideCue(dialogue="מה מבקש ממך תשומת לב עכשיו?", emotion=GuideEmotion.CURIOUS, animation=GuideAnimation.LISTEN),
             camera=CameraCue(mode=CameraMode.FOCUS, target="reading_table", duration_seconds=2),
             interaction=InteractionCue(type=InteractionType.ASK_QUESTION, prompt="כתבי את השאלה שלך", input_key="question"), effects=["candles_on"])
+    if session.state is WorldState.METHOD_CHOICE:
+        return ExperienceCommand(**common, scene=SceneId.SECRET_READING_ROOM, world=_world_for(session, SceneId.SECRET_READING_ROOM),
+            guide=GuideCue(dialogue="איך תרצי שנתבונן בשאלה הזו יחד?", emotion=GuideEmotion.CURIOUS, animation=GuideAnimation.SPEAK),
+            interaction=InteractionCue(type=InteractionType.CHOOSE_OPTION, prompt="בחירת דרך", input_key="choose_method", options=[
+                InteractionOption(id="tarot", label="קלפי טארוט"), InteractionOption(id="numerology", label="נומרולוגיה")]))
+    if session.state is WorldState.NUMEROLOGY_NAME:
+        return ExperienceCommand(**common, scene=SceneId.SECRET_READING_ROOM, world=_world_for(session, SceneId.SECRET_READING_ROOM),
+            guide=GuideCue(dialogue="נתחיל מהשם. איך קוראים לך, בשם מלא?", emotion=GuideEmotion.CURIOUS, animation=GuideAnimation.LISTEN),
+            interaction=InteractionCue(type=InteractionType.ASK_QUESTION, prompt="שם מלא בעברית", input_key="full_name"))
+    if session.state is WorldState.NUMEROLOGY_BIRTH:
+        return ExperienceCommand(**common, scene=SceneId.SECRET_READING_ROOM, world=_world_for(session, SceneId.SECRET_READING_ROOM),
+            guide=GuideCue(dialogue="ועכשיו תאריך הלידה.", emotion=GuideEmotion.CURIOUS, animation=GuideAnimation.LISTEN),
+            interaction=InteractionCue(type=InteractionType.ASK_QUESTION, prompt="תאריך לידה (יום.חודש.שנה)", input_key="birth_date"))
     if session.state is WorldState.READING:
         if session.reading_result is not None and session.reading_result.status == "clarification_required":
             return ExperienceCommand(**common, scene=SceneId.SECRET_READING_ROOM, world=_world_for(session, SceneId.SECRET_READING_ROOM),

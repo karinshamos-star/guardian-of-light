@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from guardian_core.api.app import app
@@ -8,12 +9,14 @@ def test_world_session_happy_path():
     session = new_session()
     assert session.command().interaction.input_key == "begin"
     session.apply(WorldAction.BEGIN)
-    session.apply(WorldAction.CHOOSE_AVATAR, {"avatar_id": "seeker"})
     session.apply(WorldAction.ENTER_LIBRARY)
     session.apply(WorldAction.TALK_TO_GUIDE)
     session.apply(WorldAction.FOLLOW_GUIDE)
     session.apply(WorldAction.ENTER_SECRET_ROOM)
     command = session.apply(WorldAction.ASK_QUESTION, {"question": "מה חשוב לי עכשיו?"})
+    assert session.state is WorldState.METHOD_CHOICE
+    assert [o.id for o in command.interaction.options] == ["tarot", "numerology"]
+    command = session.apply(WorldAction.CHOOSE_METHOD, {"option_id": "tarot"})
     assert session.state is WorldState.READING
     assert command.payload["question"] == "מה חשוב לי עכשיו?"
 
@@ -21,12 +24,12 @@ def test_world_session_happy_path():
 def _session_at_reading(question: str = "אני מתלבט אם לעבור עבודה") -> WorldSession:
     session = new_session()
     session.apply(WorldAction.BEGIN)
-    session.apply(WorldAction.CHOOSE_AVATAR, {"avatar_id": "seeker"})
     session.apply(WorldAction.ENTER_LIBRARY)
     session.apply(WorldAction.TALK_TO_GUIDE)
     session.apply(WorldAction.FOLLOW_GUIDE)
     session.apply(WorldAction.ENTER_SECRET_ROOM)
     session.apply(WorldAction.ASK_QUESTION, {"question": question})
+    session.apply(WorldAction.CHOOSE_METHOD, {"option_id": "tarot"})
     return session
 
 
@@ -88,7 +91,7 @@ def test_world_session_api():
     session_id = body["session"]["session_id"]
     moved = client.post(f"/v1/world/sessions/{session_id}/actions", json={"action": "begin", "payload": {}})
     assert moved.status_code == 200
-    assert moved.json()["session"]["state"] == "avatar_selection"
+    assert moved.json()["session"]["state"] == "library_entrance"
 
 
 def test_world_objects_change_with_session_actions():
@@ -98,7 +101,6 @@ def test_world_objects_change_with_session_actions():
     assert session.object_states["secret_door"] == "hidden"
 
     session.apply(WorldAction.BEGIN)
-    session.apply(WorldAction.CHOOSE_AVATAR, {"avatar_id": "seeker"})
     entered = session.apply(WorldAction.ENTER_LIBRARY)
     assert session.object_states["library_doors"] == "open"
     assert entered.world.guide_activity == "greeting_visitor"
@@ -120,8 +122,7 @@ def test_world_session_api_exposes_object_state():
 
 def test_passthrough_steps_advertise_auto_advance():
     session = new_session()
-    session.apply(WorldAction.BEGIN)
-    command = session.apply(WorldAction.CHOOSE_AVATAR, {"avatar_id": "seeker"})
+    command = session.apply(WorldAction.BEGIN)
     assert command.interaction.input_key == "enter_library"
     assert command.interaction.auto_advance_seconds == 1.5
     command = session.apply(WorldAction.ENTER_LIBRARY)
@@ -133,3 +134,57 @@ def test_passthrough_steps_advertise_auto_advance():
     assert command.interaction.auto_advance_seconds == 1.5
     # Deliberate steps stay deliberate.
     assert session.apply(WorldAction.ENTER_SECRET_ROOM).interaction.auto_advance_seconds is None
+
+
+def _session_at_method_choice() -> WorldSession:
+    session = new_session()
+    for action in (WorldAction.BEGIN, WorldAction.ENTER_LIBRARY, WorldAction.TALK_TO_GUIDE,
+                   WorldAction.FOLLOW_GUIDE, WorldAction.ENTER_SECRET_ROOM):
+        session.apply(action)
+    session.apply(WorldAction.ASK_QUESTION, {"question": "מה מבקש ממני תשומת לב?"})
+    return session
+
+
+def test_numerology_path_collects_name_and_birth_date_then_reflects():
+    session = _session_at_method_choice()
+    command = session.apply(WorldAction.CHOOSE_METHOD, {"option_id": "numerology"})
+    assert session.state is WorldState.NUMEROLOGY_NAME
+    assert command.interaction.input_key == "full_name"
+
+    command = session.apply(WorldAction.ASK_QUESTION, {"full_name": "דנה לוי"})
+    assert session.state is WorldState.NUMEROLOGY_BIRTH
+    assert command.interaction.input_key == "birth_date"
+
+    command = session.apply(WorldAction.ASK_QUESTION, {"birth_date": "15.03.1990"})
+    assert session.state is WorldState.REFLECTION
+    reading = command.payload["reading"]
+    assert reading["status"] == "completed"
+    assert [s["position"] for s in reading["sections"][:4]] == ["שביל הגורל", "מספר השם", "מספר הכוח", "השנה האישית"]
+    assert reading["reflection_question"] and reading["grounded_action"]
+
+
+def test_numerology_rejects_bad_input_without_leaving_the_step():
+    session = _session_at_method_choice()
+    session.apply(WorldAction.CHOOSE_METHOD, {"option_id": "numerology"})
+    for bad in ("Dana", "   "):
+        with pytest.raises(ValueError):
+            session.apply(WorldAction.ASK_QUESTION, {"full_name": bad})
+        assert session.state is WorldState.NUMEROLOGY_NAME
+    session.apply(WorldAction.ASK_QUESTION, {"full_name": "דנה"})
+    for bad in ("not a date", "31.02.1990", "01.01.2999"):
+        try:
+            session.apply(WorldAction.ASK_QUESTION, {"birth_date": bad})
+        except ValueError:
+            assert session.state is WorldState.NUMEROLOGY_BIRTH
+        else:
+            raise AssertionError(f"accepted {bad}")
+
+
+def test_unknown_method_rejected():
+    session = _session_at_method_choice()
+    try:
+        session.apply(WorldAction.CHOOSE_METHOD, {"option_id": "astrology"})
+    except ValueError:
+        assert session.state is WorldState.METHOD_CHOICE
+    else:
+        raise AssertionError("unknown method accepted")

@@ -16,7 +16,7 @@ def _resolve_action(interaction: dict) -> tuple[str, dict]:
         key = interaction.get("input_key") or "question"
         return "ask_question", {key: "אני מתלבט אם לעבור עבודה"}
     if kind == "choose_option":
-        return "choose_avatar", {"avatar_id": interaction["options"][0]["id"]}
+        return interaction["input_key"], {"option_id": interaction["options"][0]["id"]}
     if kind in ("talk_to_guide", "follow_guide"):
         return kind, {}
     raise AssertionError(f"no client rule for interaction type '{kind}'")

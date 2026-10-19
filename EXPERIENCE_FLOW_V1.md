@@ -97,6 +97,16 @@ Before `ARRIVAL`'s command is generated, the system silently checks: does this s
 - **[Decision — Karina, overrides the table above for `/world-demo`]** Pre-`QUESTION` steps merged into one passthrough: only `ARRIVAL` ("begin") and `AVATAR_SELECTION` need input. `LIBRARY_ENTRANCE`, `GUIDE_GREETING`, `SECRET_DOOR` and `READING_ROOM` auto-advance via `InteractionCue.auto_advance_seconds` (1.5s), with no button shown (a quiet "· · ·" cue instead). This supersedes "`GUIDE_GREETING` must stay deliberate"; the greeting beat is preserved by its 4s dwell. Taps before `QUESTION` drop from 6 to 2.
 - These classifications assume gap #2 (returning-user persistence) is resolved; until then, every session is necessarily treated as new-user pacing.
 
+### 1.5 Avatar selection removed; method choice added after the question
+
+**[Decision — Karina, `/world-demo`]**
+- `AVATAR_SELECTION` had no effect on anything the user experiences, so it is no longer reachable: `ARRIVAL --begin--> LIBRARY_ENTRANCE`. The state and `choose_avatar` action remain defined for contract compatibility.
+- Intent: the user arrives with a question, and then *chooses what kind of answer she wants*. After `QUESTION`, Lumina offers the method (`METHOD_CHOICE`): **Tarot** or **Numerology**. Kabbalah is not offered yet — it has no calculation or content pipeline.
+- Tarot continues as before (`READING`, including the clarification loop).
+- Numerology asks for full name in Hebrew (`NUMEROLOGY_NAME`) and birth date (`NUMEROLOGY_BIRTH`), computes the profile deterministically (`guardian_core.numerology`, Hebrew gematria, Revital Cohen cycle formulas from the registered sources), and goes straight to `REFLECTION`.
+- **Placeholder content:** the numerology wording (`numerology/reading.py`) is demo text written for flow testing, not authored knowledge. Replace it with knowledge entities.
+- Interaction contract: `choose_option` now sends `action = interaction.input_key` with payload `{option_id}`.
+
 ### 1.4 Depth framing — moved
 
 Depth selection previously lived here, at `READING_ROOM`. **[Decision — incorporated]** it has moved to after the question is focused — see §3.2. `READING_ROOM` no longer carries any content decision, which is what makes its passthrough classification in §1.3 possible.
