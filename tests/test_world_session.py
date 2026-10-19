@@ -51,8 +51,10 @@ def test_complete_reading_stays_in_reading_state_when_clarification_is_required(
     assert session.reading_result.status == "clarification_required"
     assert command.interaction.input_key == "question"
 
-    session.apply(WorldAction.ASK_QUESTION, {"question": "אני מתלבט אם לעבור עבודה"})
+    command = session.apply(WorldAction.ASK_QUESTION, {"question": "אני מתלבט אם לעבור עבודה"})
     assert session.state is WorldState.READING
+    assert command.interaction.input_key == "complete_reading"
+    assert "לעזוב" in session.question and "עבודה" in session.question
     session.apply(WorldAction.COMPLETE_READING, {"seed": "clarify-then-complete"})
     assert session.state is WorldState.REFLECTION
     assert session.reading_result.status == "completed"

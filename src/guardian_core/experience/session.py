@@ -86,7 +86,11 @@ class WorldSession:
             question = str(payload.get("question", "")).strip()
             if not question:
                 raise ValueError("question is required")
-            self.question = question
+            awaiting_clarification = self.reading_result is not None and self.reading_result.status == "clarification_required"
+            # A clarification answer extends the original question; it must not replace it,
+            # and the stale clarification result must be cleared so the flow can advance.
+            self.question = f"{self.question} {question}".strip() if awaiting_clarification and self.question else question
+            self.reading_result = None
 
         if action is WorldAction.COMPLETE_READING:
             outcome = run_reading(question=self.question or "", seed=payload.get("seed"))
