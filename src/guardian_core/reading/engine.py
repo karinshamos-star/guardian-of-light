@@ -4,6 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from guardian_core.knowledge.loader import KnowledgePackage, load_knowledge_package
+from guardian_core.reading.demo_card_text import card_text as _demo_card_text
 
 _KNOWLEDGE_PACKAGE_PATH = Path(__file__).resolve().parents[3] / "knowledge" / "_compiled" / "knowledge_package.json"
 
@@ -55,6 +56,15 @@ def _knowledge_package() -> KnowledgePackage | None:
         return None
 
 
+def _format_card_text(card, essence: str, light: str, shadow: str, reversed_text: str) -> str:
+    if card.orientation == "reversed":
+        return f"{card.name_he} מופיע בצורה הפוכה. {essence.strip()} בהיפוך הזה: {reversed_text.strip()}"
+    return (
+        f"{card.name_he} מופיע בצורה ישרה. {essence.strip()} "
+        f"הביטוי המחזק שלו: {light.strip()} ובצד הצל: {shadow.strip()}"
+    )
+
+
 def _card_section_text(card) -> str:
     package = _knowledge_package()
     if package is not None:
@@ -64,15 +74,13 @@ def _card_section_text(card) -> str:
             entity = None
         if entity is not None:
             data = entity.data
-            if card.orientation == "reversed":
-                return (
-                    f"{card.name_he} מופיע בצורה הפוכה. {data['core_essence'].strip()} "
-                    f"בהיפוך הזה: {data['reversed_expression'].strip()}"
-                )
-            return (
-                f"{card.name_he} מופיע בצורה ישרה. {data['core_essence'].strip()} "
-                f"הביטוי המחזק שלו: {data['light_expression'].strip()} ובצד הצל: {data['shadow_expression'].strip()}"
+            return _format_card_text(
+                card, data["core_essence"], data["light_expression"], data["shadow_expression"], data["reversed_expression"]
             )
+
+    demo = _demo_card_text(card.card_id)  # placeholder text; authored entities above always win
+    if demo is not None:
+        return _format_card_text(card, *demo)
 
     orientation_note = "בצורה הפוכה, ולכן הדגש עשוי להיות פנימי או מעוכב" if card.orientation == "reversed" else "בצורה ישרה"
     return f"{card.name_he} מופיע {orientation_note}. הוא מציע להתבונן ב{_theme(card.card_id)}."
