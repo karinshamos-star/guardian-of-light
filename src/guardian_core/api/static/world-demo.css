@@ -13,3 +13,6 @@
 footer{position:fixed;right:27px;left:27px;bottom:14px;display:flex;justify-content:space-between;color:#91899b;font-size:12px;z-index:1}footer i{display:inline-block;width:7px;height:7px;margin-left:6px;border-radius:50%;background:#79d9b2;box-shadow:0 0 15px #79d9b2}
 [hidden]{display:none!important}@keyframes worldBreath{to{transform:scale(1.055)}}@keyframes drift{to{transform:translate3d(-70px,40px,0)}}@keyframes pulse{50%{opacity:.5;transform:scale(.8)}}@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @media(max-width:590px){.topbar{padding:17px}.welcome{margin:4vh auto 90px}.question{flex-direction:column}.question button{width:100%}.cards{grid-template-columns:1fr}.takeaway{grid-template-columns:1fr}footer span:last-child{display:none}}
+
+.advancing { text-align: center; letter-spacing: .4em; opacity: .6; animation: advancing-pulse 1.2s ease-in-out infinite; }
+@keyframes advancing-pulse { 50% { opacity: .2; } }

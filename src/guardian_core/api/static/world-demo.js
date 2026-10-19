@@ -69,6 +69,21 @@ function renderInteraction(command) {
     return;
   }
 
+  // Passthrough steps advance on their own: show a quiet progress cue instead of a button
+  // so they don't read as "press to continue".
+  if (interaction.auto_advance_seconds) {
+    const cue = document.createElement("div");
+    cue.className = "advancing";
+    cue.setAttribute("aria-live", "polite");
+    cue.textContent = "· · ·";
+    interactionEl.appendChild(cue);
+    autoAdvanceTimer = setTimeout(
+      () => sendAction(resolved.action, resolved.buildPayload()),
+      interaction.auto_advance_seconds * 1000,
+    );
+    return;
+  }
+
   // "continue", "talk_to_guide", "follow_guide" all render as a single button.
   const button = document.createElement("button");
   button.type = "button";
@@ -77,13 +92,6 @@ function renderInteraction(command) {
   button.addEventListener("click", () => sendAction(resolved.action, resolved.buildPayload()));
   interactionEl.appendChild(button);
 
-  // Passthrough step: advance on its own unless the user already acted (sendAction clears the timer).
-  if (interaction.auto_advance_seconds) {
-    autoAdvanceTimer = setTimeout(
-      () => sendAction(resolved.action, resolved.buildPayload()),
-      interaction.auto_advance_seconds * 1000,
-    );
-  }
 }
 
 function renderReading(command) {

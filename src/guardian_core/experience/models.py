@@ -127,8 +127,8 @@ class InteractionCue(BaseModel):
     prompt: str | None = Field(default=None, max_length=500)
     options: list[InteractionOption] = Field(default_factory=list, max_length=20)
     input_key: str | None = Field(default=None, max_length=80)
-    # Passthrough steps (EXPERIENCE_FLOW_V1 §1.3): the CONTINUE affordance stays visible,
-    # but the client advances on its own after this many seconds if it is ignored.
+    # Passthrough steps (EXPERIENCE_FLOW_V1 §1.3): the client shows no button and
+    # advances on its own after this many seconds if it is ignored.
     auto_advance_seconds: float | None = Field(default=None, ge=0.5, le=30)
 
     @model_validator(mode="after")
