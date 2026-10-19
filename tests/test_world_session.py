@@ -116,3 +116,20 @@ def test_world_session_api_exposes_object_state():
     assert fetched.status_code == 200
     assert fetched.json()["object_states"]["library_doors"] == "closed"
     assert fetched.json()["guide_activity"] == "waiting_at_entrance"
+
+
+def test_passthrough_steps_advertise_auto_advance():
+    session = new_session()
+    session.apply(WorldAction.BEGIN)
+    command = session.apply(WorldAction.CHOOSE_AVATAR, {"avatar_id": "seeker"})
+    assert command.interaction.input_key == "enter_library"
+    assert command.interaction.auto_advance_seconds == 3
+    command = session.apply(WorldAction.ENTER_LIBRARY)
+    assert command.interaction.auto_advance_seconds == 4
+    command = session.apply(WorldAction.TALK_TO_GUIDE)
+    assert command.interaction.auto_advance_seconds == 3
+    command = session.apply(WorldAction.FOLLOW_GUIDE)
+    assert command.interaction.input_key == "enter_secret_room"
+    assert command.interaction.auto_advance_seconds == 3
+    # Deliberate steps stay deliberate.
+    assert session.apply(WorldAction.ENTER_SECRET_ROOM).interaction.auto_advance_seconds is None

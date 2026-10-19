@@ -9,6 +9,7 @@ const interactionEl = $("#interaction");
 const readingContent = $("#readingContent");
 
 let sessionId = null;
+let autoAdvanceTimer = null;
 
 // Maps an ExperienceCommand's interaction.type to the WorldAction it must send back.
 // The client never branches on scene/state names -- only on this small, stable set
@@ -31,6 +32,7 @@ function actionFor(interaction) {
 }
 
 function renderInteraction(command) {
+  clearTimeout(autoAdvanceTimer);
   interactionEl.innerHTML = "";
   const interaction = command.interaction;
   const resolved = actionFor(interaction);
@@ -74,6 +76,14 @@ function renderInteraction(command) {
   button.textContent = interaction.prompt || "המשך";
   button.addEventListener("click", () => sendAction(resolved.action, resolved.buildPayload()));
   interactionEl.appendChild(button);
+
+  // Passthrough step: advance on its own unless the user already acted (sendAction clears the timer).
+  if (interaction.auto_advance_seconds) {
+    autoAdvanceTimer = setTimeout(
+      () => sendAction(resolved.action, resolved.buildPayload()),
+      interaction.auto_advance_seconds * 1000,
+    );
+  }
 }
 
 function renderReading(command) {
@@ -106,6 +116,7 @@ function renderCommand(command) {
 }
 
 async function sendAction(action, payload) {
+  clearTimeout(autoAdvanceTimer);
   loading.hidden = false;
   error.hidden = true;
   interactionEl.innerHTML = "";

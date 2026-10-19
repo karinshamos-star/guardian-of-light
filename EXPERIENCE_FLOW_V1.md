@@ -94,6 +94,7 @@ Before `ARRIVAL`'s command is generated, the system silently checks: does this s
 **[Recommendation — needs your approval]**
 - The exact session-count or time threshold at which `SECRET_DOOR` shifts from full ritual to passthrough is undefined — proposing "after the 3rd completed encounter" as a starting number, not a final one.
 - Whether "passthrough" means auto-advancing after a fixed duration, or still rendering a `CONTINUE` affordance that simply isn't required to be pressed (auto-advances if ignored) — the latter preserves user control for anyone who wants to linger.
+- **[Decision — Karina, overrides the table above for `/world-demo`]** Pre-`QUESTION` steps merged into one passthrough: only `ARRIVAL` ("begin") and `AVATAR_SELECTION` need input. `LIBRARY_ENTRANCE`, `GUIDE_GREETING`, `SECRET_DOOR` and `READING_ROOM` auto-advance via `InteractionCue.auto_advance_seconds` (3–4s), with the button still clickable. This supersedes "`GUIDE_GREETING` must stay deliberate"; the greeting beat is preserved by its 4s dwell. Taps before `QUESTION` drop from 6 to 2.
 - These classifications assume gap #2 (returning-user persistence) is resolved; until then, every session is necessarily treated as new-user pacing.
 
 ### 1.4 Depth framing — moved
