@@ -10,6 +10,7 @@ const readingContent = $("#readingContent");
 
 let sessionId = null;
 let autoAdvanceTimer = null;
+let chaining = false; // true while consecutive passthrough steps are being skipped through
 
 // Maps an ExperienceCommand's interaction.type to the WorldAction it must send back.
 // The client never branches on scene/state names -- only on this small, stable set
@@ -117,8 +118,18 @@ function renderReading(command) {
 }
 
 function renderCommand(command) {
-  luminaMessage.textContent = command.guide.dialogue || "";
-  sceneLabel.textContent = command.world ? command.world.guide_activity || "" : "";
+  const passthrough = Boolean(command.interaction && command.interaction.auto_advance_seconds);
+  // Consecutive passthrough steps collapse into one: keep the first step's text on screen
+  // and skip quickly through the rest, so only one message is shown before the next real input.
+  const collapsed = passthrough && chaining;
+  chaining = passthrough;
+  if (!collapsed) {
+    luminaMessage.textContent = command.guide.dialogue || "";
+    sceneLabel.textContent = command.world ? command.world.guide_activity || "" : "";
+  }
+  command = collapsed
+    ? { ...command, interaction: { ...command.interaction, auto_advance_seconds: 0.3 } }
+    : command;
   renderReading(command);
   renderInteraction(command);
 }
