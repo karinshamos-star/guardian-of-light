@@ -60,5 +60,5 @@ def test_the_fool_survives_a_gated_build_and_reload_round_trip(tmp_path: Path) -
     reloaded_entity = package.get("tarot.card.major-00")
     card = TAROT_CARD_SCHEMA.materialize(reloaded_entity)
 
-    assert card.data.core_essence.startswith("Standing at the edge")
+    assert card.data.core_essence.startswith("עמידה על סף הידוע")
     assert package.related("tarot.card.major-00", "concepts")[0].id == "concept.new-beginnings"

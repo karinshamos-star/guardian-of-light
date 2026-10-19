@@ -14,6 +14,10 @@ changelog:
     date: "2026-07-31"
     reason: "Initial authoring as the vertical-slice proof card for the Guardian Knowledge Platform."
     reviewer: karina
+  - version: "1.1"
+    date: "2026-10-19"
+    reason: "Translated data fields to Hebrew to match the production Hebrew-language experience."
+    reviewer: karina
 related:
   concepts:
     - concept.new-beginnings
@@ -24,37 +28,35 @@ data:
   arcana: major
   name_he: השוטה
   core_essence: >
-    Standing at the edge of the known, carrying everything needed for the
-    next step without yet knowing what that step requires.
+    עמידה על סף הידוע, כשכל מה שנדרש לצעד הבא כבר נמצא בידיים, גם אם
+    עדיין לא ברור מה בדיוק הצעד הזה דורש.
   light_expression: >
-    Trust in the process, genuine openness to experience, courage to begin
-    without a guaranteed outcome.
+    אמון בתהליך, פתיחות אמיתית לחוויה, ואומץ להתחיל גם בלי תוצאה מובטחת.
   shadow_expression: >
-    Recklessness, refusing to plan, mistaking naivety for faith, ignoring
-    real and visible risk.
+    פזיזות, סירוב לתכנן, בלבול בין תמימות לאמונה, והתעלמות מסיכון אמיתי
+    וגלוי לעין.
   reversed_expression: >
-    Hesitation dressed as caution, a real beginning delayed past the point
-    it was ever going to feel fully safe -- or the opposite: leaping
-    without any grounding at all.
+    היסוס שמתחפש לזהירות, התחלה אמיתית שנדחית הרבה מעבר לנקודה שבה היא
+    הייתה אי פעם מרגישה בטוחה לגמרי -- או ההפך: קפיצה בלי שום עיגון.
   dimensions:
-    emotional: A feeling of openness that hasn't yet been tested by consequence.
-    mental: Thinking in possibility rather than plan.
-    relational: Entering a connection or situation without a fixed script for how it should go.
-    practical: A first, literal step -- a trip, a job, a project -- taken before every variable is controlled for.
-    spiritual: Willingness to be changed by what hasn't happened yet.
+    emotional: תחושת פתיחות שעדיין לא נבחנה מול תוצאה אמיתית.
+    mental: חשיבה במונחים של אפשרות ולא של תוכנית.
+    relational: כניסה לקשר או למצב בלי תסריט קבוע מראש לאיך זה אמור להתנהל.
+    practical: צעד ראשון ומוחשי -- נסיעה, עבודה, פרויקט -- שנעשה לפני שכל משתנה נשלט.
+    spiritual: נכונות להשתנות דרך מה שעדיין לא קרה.
   contexts:
-    love: Entering something new without demanding certainty about how it ends.
-    work: Starting a role, project, or direction before every risk is fully mapped.
-    money: A financial choice made on reasoned trust rather than complete information.
-    decision: The option that requires courage more than analysis.
-    growth: The step that can only be understood by taking it.
+    love: כניסה למשהו חדש בלי לדרוש ודאות לגבי איך זה ייגמר.
+    work: התחלת תפקיד, פרויקט או כיוון לפני שכל סיכון ממופה במלואו.
+    money: החלטה כספית שמתקבלת מתוך אמון מנומק ולא מתוך מידע מלא.
+    decision: האפשרות שדורשת אומץ יותר מאשר ניתוח.
+    growth: הצעד שאפשר להבין רק על ידי עשייתו.
   reflection_questions:
-    - "What would you do here if you trusted that you could handle whatever came next?"
-    - "Is your hesitation protecting you from real risk, or just from feeling uncertain?"
+    - "מה היית עושה כאן אם היית בוטחת שתוכלי להתמודד עם מה שיבוא אחר כך?"
+    - "האם ההיסוס שלך מגן עלייך מסיכון אמיתי, או רק מתחושת אי-ודאות?"
   grounded_actions:
-    - "Name one small, reversible version of the leap you're considering, and take just that."
-    - "Write down the one piece of information you'd actually need before this stops feeling like a blind leap."
+    - "הגדירי גרסה קטנה והפיכה של הקפיצה שאת שוקלת, וקחי רק אותה."
+    - "כתבי את פרט המידע האחד שבאמת היית צריכה כדי שזה יפסיק להרגיש כמו קפיצה עיוורת."
   safety_notes: >
-    Guardian must not read this card as license to ignore real, material
-    risk (financial, physical, relational safety) -- openness to beginning
-    is not the same as recommending an unexamined leap.
+    Guardian לא צריך לקרוא את הקלף הזה כהיתר להתעלם מסיכון אמיתי ומוחשי
+    (כלכלי, פיזי, או בטיחות בתוך קשר) -- פתיחות להתחלה אינה זהה להמלצה
+    על קפיצה לא נבחנת.

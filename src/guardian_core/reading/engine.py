@@ -1,5 +1,12 @@
 from __future__ import annotations
 
+from functools import lru_cache
+from pathlib import Path
+
+from guardian_core.knowledge.loader import KnowledgePackage, load_knowledge_package
+
+_KNOWLEDGE_PACKAGE_PATH = Path(__file__).resolve().parents[3] / "knowledge" / "_compiled" / "knowledge_package.json"
+
 CARD_THEMES = {
     "major-00": "פתיחות להתחלה חדשה, לצד צורך בצעד מודע",
     "major-01": "יכולת להשתמש במשאבים שכבר נמצאים בידייך",
@@ -40,14 +47,44 @@ def _theme(card_id: str) -> str:
     return SUIT_THEMES.get(suit, "התבוננות סמלית במצב")
 
 
+@lru_cache(maxsize=1)
+def _knowledge_package() -> KnowledgePackage | None:
+    try:
+        return load_knowledge_package(_KNOWLEDGE_PACKAGE_PATH)
+    except (FileNotFoundError, ValueError, KeyError):
+        return None
+
+
+def _card_section_text(card) -> str:
+    package = _knowledge_package()
+    if package is not None:
+        try:
+            entity = package.get(f"tarot.card.{card.card_id}")
+        except KeyError:
+            entity = None
+        if entity is not None:
+            data = entity.data
+            if card.orientation == "reversed":
+                return (
+                    f"{card.name_he} מופיע בצורה הפוכה. {data['core_essence'].strip()} "
+                    f"בהיפוך הזה: {data['reversed_expression'].strip()}"
+                )
+            return (
+                f"{card.name_he} מופיע בצורה ישרה. {data['core_essence'].strip()} "
+                f"הביטוי המחזק שלו: {data['light_expression'].strip()} ובצד הצל: {data['shadow_expression'].strip()}"
+            )
+
+    orientation_note = "בצורה הפוכה, ולכן הדגש עשוי להיות פנימי או מעוכב" if card.orientation == "reversed" else "בצורה ישרה"
+    return f"{card.name_he} מופיע {orientation_note}. הוא מציע להתבונן ב{_theme(card.card_id)}."
+
+
 def create_reading(question_dna, spread, draw):
     sections = []
     for position, card in zip(spread.positions, draw.cards):
-        orientation_note = "בצורה הפוכה, ולכן הדגש עשוי להיות פנימי או מעוכב" if card.orientation == "reversed" else "בצורה ישרה"
         sections.append({
             "position": position.label,
             "card": card.name_he,
-            "text": f"{card.name_he} מופיע {orientation_note}. הוא מציע להתבונן ב{_theme(card.card_id)}."
+            "text": _card_section_text(card),
         })
 
     central = (
